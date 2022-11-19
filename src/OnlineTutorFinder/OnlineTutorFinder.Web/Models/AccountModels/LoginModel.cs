@@ -15,8 +15,7 @@ namespace OnlineTutorFinder.Web.Models.AccountModels
 
         [Display(Name = "Remember me?")]
         public bool RememberMe { get; set; }
-        public IList<AuthenticationScheme>? ExternalLogins { get; set; }
-
+        
         public string? ReturnUrl { get; set; }
         public string? ErrorMessage { get; set; }
     }

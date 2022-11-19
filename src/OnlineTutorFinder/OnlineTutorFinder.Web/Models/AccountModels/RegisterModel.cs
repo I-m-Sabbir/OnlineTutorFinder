@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using OnlineTutorFinder.Web.Extensions;
+using System.ComponentModel.DataAnnotations;
 
 namespace OnlineTutorFinder.Web.Models.AccountModels
 {
@@ -29,6 +30,17 @@ namespace OnlineTutorFinder.Web.Models.AccountModels
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; } = null!;
+
+        [OnlyAccept("Male","Female","Other")]
+        [Display(Name = "Gender")]
+        public string? Gender { get; set; }
+
+        [Display(Name = "Address")]
+        public string? Address { get; set; }
+
+        [Required(ErrorMessage = "Please Choose an Option.")]
+        [Display(Name = "Regiter As")]
+        public string RegisterAs { get; set; } = null!;
 
         public string? ReturnUrl { get; set; }
     }

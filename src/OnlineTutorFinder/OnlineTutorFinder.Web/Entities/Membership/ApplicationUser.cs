@@ -6,5 +6,10 @@ namespace OnlineTutorFinder.Web.Entities.Membership
     {
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
+        public string? Gender { get; set; }
+        public string? ProfilePicture { get; set; }
+        public string? Address { get; set; }
+
+        public IList<Subject>? Subjects { get; set; }
     }
 }
