@@ -20,7 +20,6 @@
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Teacher\Data\" />
     <Folder Include="Areas\User\Data\" />
-    <Folder Include="wwwroot\Images\ProfilePictures\" />
   </ItemGroup>
 
 </Project>

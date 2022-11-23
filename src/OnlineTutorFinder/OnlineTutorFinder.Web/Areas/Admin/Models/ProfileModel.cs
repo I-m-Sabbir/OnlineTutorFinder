@@ -2,11 +2,12 @@
 using OnlineTutorFinder.Web.Entities.Membership;
 using OnlineTutorFinder.Web.Extensions;
 using System.ComponentModel.DataAnnotations;
+using System.Xml.Linq;
 
-namespace OnlineTutorFinder.Web.Models
+namespace OnlineTutorFinder.Web.Areas.Admin.Models
 {
-    [Authorize]
-    public class ProfileModel
+    [Authorize(Roles = "Admin")]
+    public class ProfileModel : AdminBaseModel
     {
         [Required]
         [Display(Name = "First Name")]
@@ -27,6 +28,8 @@ namespace OnlineTutorFinder.Web.Models
         public string? Gender { get; set; }
 
         public string? PictureUrl { get; set; }
+
+        [Image(ErrorMessage = "Only '.jpg', '.jpeg', '.png' Files Allowed Under 1MB")]
         public IFormFile? Picture { get; set; }
 
 
@@ -40,5 +43,16 @@ namespace OnlineTutorFinder.Web.Models
             this.Gender = user.Gender;
         }
 
+
+        
+        internal ApplicationUser Update(ApplicationUser user)
+        {
+            user.FirstName = this.FirstName;
+            user.LastName = this.LastName;
+            user.Address = this.Address;
+            user.ProfilePicture = this.PictureUrl;
+
+            return user;
+        }
     }
 }

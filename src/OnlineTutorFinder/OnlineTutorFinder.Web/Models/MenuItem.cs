@@ -1,10 +1,5 @@
 ﻿namespace OnlineTutorFinder.Web.Models
 {
-    public class MenuBar
-    {
-        public IList<MenuItem>? MenuItems { get; set; }
-    }
-
     public class MenuItem
     {
         public string? Name { get; set; }

@@ -3,10 +3,9 @@
     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
         <!-- Add icons to the links using the .nav-icon class
         with font-awesome or any other icon font library -->
-        
-        @if (ViewBag.Menu != null && ViewBag.Menu.Count > 0)
+        @if (AdminBaseModel.Menu != null && AdminBaseModel.Menu.Count > 0)
         {
-            foreach (var item in ViewBag.Menu)
+            foreach (var item in AdminBaseModel.Menu)
             {
                 if (item.HasChild)
                 {
@@ -14,17 +13,17 @@
                         <a href="#" class="nav-link">
                             <i class="nav-icon @item.Icon"></i>
                             <p>
-                                @item.Name
+                                <span class="brand-text font-weight-bold">@item.Name</span>
                                 <i class="right fas fa-angle-left"></i>
                             </p>
                         </a>
                         <ul class="nav nav-treeview">
-                            @foreach (var child in item.ChildItems)
+                            @foreach (var child in item.ChildItems!)
                             {
                                 <li class="nav-item">
                                     <a href="@child.Link" class="nav-link">
                                         <i class="@child.Icon"></i>
-                                        <p>@child.Name</p>
+                                        <span class="brand-text font-weight-bold">@child.Name</span>
                                     </a>
                                 </li>
                             }
@@ -37,16 +36,13 @@
                         <a href="@item.Link" class="nav-link">
                             <h5 class="text-white">
                                 <i class="@item.Icon"></i>
-                                <b>@item.Name</b>
+                                <span class="brand-text font-weight-bold">@item.Name</span>
                             </h5>
                         </a>
                     </li>
                 }
             }
         }
-
-        @ViewBag.Menu
-
     </ul>
 </nav>
 

@@ -11,7 +11,7 @@ namespace OnlineTutorFinder.Web.Areas.Admin.Controllers
     {
         public AdminBaseController()
         {
-            ViewBag.Menu = AdminMenu.Items();
+            
         }
     }
 }

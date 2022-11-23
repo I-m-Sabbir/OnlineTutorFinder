@@ -12,7 +12,7 @@ namespace OnlineTutorFinder.Web.Areas.Admin.Models
                 new MenuItem
                 {
                     Name = "Profile",
-                    Link = "/Profile/Index",
+                    Link = "/Admin/Profile/Index",
                     Icon = "fas fa-user",
                     HasChild = false,
                 },

@@ -7,6 +7,7 @@ namespace OnlineTutorFinder.Web.Areas.Admin.Controllers
     public class DashboardController : AdminBaseController<DashboardController>
     {
         public DashboardController()
+            :base()
         {
             
         }
