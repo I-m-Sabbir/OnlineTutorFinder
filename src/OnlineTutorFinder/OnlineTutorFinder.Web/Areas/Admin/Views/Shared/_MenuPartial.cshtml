@@ -1,0 +1,52 @@
+﻿
+<nav class="mt-2">
+    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+        <!-- Add icons to the links using the .nav-icon class
+        with font-awesome or any other icon font library -->
+        
+        @if (ViewBag.Menu != null && ViewBag.Menu.Count > 0)
+        {
+            foreach (var item in ViewBag.Menu)
+            {
+                if (item.HasChild)
+                {
+                    <li class="nav-item has-treeview menu-open">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon @item.Icon"></i>
+                            <p>
+                                @item.Name
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            @foreach (var child in item.ChildItems)
+                            {
+                                <li class="nav-item">
+                                    <a href="@child.Link" class="nav-link">
+                                        <i class="@child.Icon"></i>
+                                        <p>@child.Name</p>
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                    </li>
+                }
+                else
+                {
+                    <li class="nav-item border-bottom">
+                        <a href="@item.Link" class="nav-link">
+                            <h5 class="text-white">
+                                <i class="@item.Icon"></i>
+                                <b>@item.Name</b>
+                            </h5>
+                        </a>
+                    </li>
+                }
+            }
+        }
+
+        @ViewBag.Menu
+
+    </ul>
+</nav>
+

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using NuGet.Versioning;
 using OnlineTutorFinder.Web.Entities.Membership;
 using OnlineTutorFinder.Web.Models.AccountModels;
 using static System.Formats.Asn1.AsnWriter;
@@ -43,6 +44,7 @@ namespace OnlineTutorFinder.Web.Controllers
                     Email = model.Email,
                     FirstName = model.FirstName,
                     LastName = model.LastName,
+                    IsActive = true,
                 };
                 var result = await _userManager.CreateAsync(user, model.Password);
 
@@ -87,9 +89,9 @@ namespace OnlineTutorFinder.Web.Controllers
 
 
         [HttpPost, ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(LoginModel model, string? returnUrl = null)
+        public async Task<IActionResult> Login(LoginModel model)
         {
-            //model.ReturnUrl ??= Url.Content("~/");
+            model.ReturnUrl = model.ReturnUrl == "/" ? null : model.ReturnUrl;
 
             if (ModelState.IsValid)
             {
@@ -99,9 +101,9 @@ namespace OnlineTutorFinder.Web.Controllers
                 if (result.Succeeded)
                 {
                     var user = await _userManager.FindByEmailAsync(model.Email);
-                    if (user != null)
+                    if (user != null && user.IsActive)
                     {
-                        if (!string.IsNullOrWhiteSpace(model.ReturnUrl) && !Url.IsLocalUrl(model.ReturnUrl))
+                        if (!string.IsNullOrWhiteSpace(model.ReturnUrl) && Url.IsLocalUrl(model.ReturnUrl))
                         {
                             return Redirect(model.ReturnUrl);
                         }

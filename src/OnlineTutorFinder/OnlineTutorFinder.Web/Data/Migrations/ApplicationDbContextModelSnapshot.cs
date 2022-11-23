@@ -51,6 +51,9 @@ namespace OnlineTutorFinder.Web.Data.Migrations
                     b.Property<string>("Gender")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
@@ -107,20 +110,21 @@ namespace OnlineTutorFinder.Web.Data.Migrations
                         {
                             Id = new Guid("8e445865-a24d-4543-a6c6-9443d048cdb9"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "648b3c56-795c-4bf1-9a3c-85454e64befc",
-                            Email = "SuperAdmin@gmail.com",
+                            ConcurrencyStamp = "f25527c3-7c02-4574-bdaa-537614a5e39e",
+                            Email = "Superadmin@gmail.com",
                             EmailConfirmed = true,
                             FirstName = "Super Admin",
                             Gender = "Male",
+                            IsActive = true,
                             LastName = "",
                             LockoutEnabled = true,
                             NormalizedEmail = "SUPERADMIN@GMAIL.COM",
                             NormalizedUserName = "SUPERADMIN@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEAamUTqrCZ0Wk8joxnwI17B/5aVLJGxEmJfY5N8wKxoJ3r3Q3OtedLxzfU2AURebeA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEJLAH0AtSO9ayTjPn0vSgHrZmlEFIiQlfQjfrJi874+dbLpCZvv+qLCZaoDqwT1E/A==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "8e445865-a24d-4543-a6c6-9443d048cdb8",
                             TwoFactorEnabled = false,
-                            UserName = "SuperAdmin@gmail.com"
+                            UserName = "Superadmin@gmail.com"
                         });
                 });
 
@@ -155,21 +159,21 @@ namespace OnlineTutorFinder.Web.Data.Migrations
                         new
                         {
                             Id = new Guid("2c5e174e-3b0e-446f-86af-483d56fd7210"),
-                            ConcurrencyStamp = "638044728404782575",
+                            ConcurrencyStamp = "638047328537875966",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = new Guid("2c5e174e-3b0e-446f-86af-483d56fd7211"),
-                            ConcurrencyStamp = "638044729004782607",
+                            ConcurrencyStamp = "638047329137875985",
                             Name = "Teacher",
                             NormalizedName = "TEACHER"
                         },
                         new
                         {
                             Id = new Guid("2c5e174e-3b0e-446f-86af-483d56fd7212"),
-                            ConcurrencyStamp = "638044729604782631",
+                            ConcurrencyStamp = "638047329737875992",
                             Name = "User",
                             NormalizedName = "USER"
                         });

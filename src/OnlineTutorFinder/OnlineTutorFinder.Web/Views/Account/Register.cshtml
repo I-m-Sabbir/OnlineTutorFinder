@@ -3,13 +3,13 @@
     ViewData["Title"] = "Register";
 }
 
-<section style="margin-top: 100px">
-    <div class="container">
-        <div class="row">
+<section>
+    <div class="container d-flex justify-content-center bg-info shadow">
+        <div class="row w-50">
             <div class="col-md-12">
                 <form id="registerForm" asp-action="Register" asp-controller="Account"
                       asp-area="" asp-antiforgery="true" asp-route-returnUrl="@Model.ReturnUrl" method="post">
-                    <h2>Register</h2>
+                    <h2 class="text-center">Register</h2>
                     <hr />
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <div class="form-floating pb-3">
@@ -53,7 +53,9 @@
                         <input asp-for="RegisterAs" type="radio" value="Teacher" class="ms-5" /> Teacher <br />
                         <span asp-validation-for="RegisterAs" class="text-danger"></span>
                     </div>
-                    <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Signup!</button>
+                    <div class="pb-3 d-flex justify-content-center">
+                        <button id="registerSubmit" type="submit" class="btn btn-lg btn-primary rounded">Signup!</button>
+                    </div>
                 </form>
             </div>
         </div>
