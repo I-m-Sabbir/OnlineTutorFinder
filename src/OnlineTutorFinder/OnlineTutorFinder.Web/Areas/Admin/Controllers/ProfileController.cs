@@ -1,16 +1,20 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OnlineTutorFinder.Web.Areas.Admin.Models;
 using OnlineTutorFinder.Web.Services.Membership;
+using Microsoft.AspNetCore.Hosting;
 
 namespace OnlineTutorFinder.Web.Areas.Admin.Controllers
 {
     public class ProfileController : AdminBaseController<ProfileController>
     {
         private readonly UserManager _userManager;
+        private readonly IWebHostEnvironment _webhostEnvironment;
 
-        public ProfileController(UserManager userManager)
+        public ProfileController(UserManager userManager, ILogger<ProfileController> logger, IWebHostEnvironment webhostEnvironment)
+            : base(logger)
         {
             _userManager = userManager;
+            _webhostEnvironment = webhostEnvironment;
         }
 
         public async Task<IActionResult> Index()
@@ -39,18 +43,38 @@ namespace OnlineTutorFinder.Web.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 var user = await _userManager.FindByNameAsync(User.Identity!.Name);
-
-                var updated = model.Update(user);
-                var result = await _userManager.UpdateAsync(updated);
-
-                if (result.Succeeded)
+                try
                 {
-                    return RedirectToAction(nameof(Index));
+                    model.PictureUrl = await PictureUpload(model.Picture ,user.Id);
+                    var updated = model.Update(user);
+                    var result = await _userManager.UpdateAsync(updated);
+
+                    if (result.Succeeded)
+                    {
+                        return RedirectToAction(nameof(Index));
+                    }
+                }
+                catch(Exception ex)
+                {
+                    _logger.LogError(ex, ex.Message);
                 }
 
             }
 
             return View(model);
         }
+
+        private async Task<string> PictureUpload(IFormFile? picture, Guid id)
+        {
+            string path = Path.Combine("/Images/ProfilePictures/", id + "-" + Path.GetFileName(picture!.FileName));
+            string absulotePath = Path.Combine(_webhostEnvironment.WebRootPath + path);
+
+            using (Stream stream = new FileStream(absulotePath, FileMode.Create))
+            {
+                await picture.CopyToAsync(stream);
+            }
+            return path;
+        }
+
     }
 }

@@ -6,12 +6,13 @@ namespace OnlineTutorFinder.Web.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Authorize(Roles = "Admin")]
-    public class AdminBaseController<Tcontroller> : Controller
-        where Tcontroller : Controller
+    public class AdminBaseController<TController> : Controller
+        where TController : Controller
     {
-        public AdminBaseController()
+        protected readonly ILogger<TController> _logger;
+        public AdminBaseController(ILogger<TController> logger)
         {
-            
+            _logger = logger;
         }
     }
 }
