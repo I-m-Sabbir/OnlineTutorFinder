@@ -3,14 +3,14 @@
     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
         <!-- Add icons to the links using the .nav-icon class
         with font-awesome or any other icon font library -->
-        @if (AdminBaseModel.Menu != null && AdminBaseModel.Menu.Count > 0)
+        @if (TeacherBaseModel.Menu != null && TeacherBaseModel.Menu.Count > 0)
         {
-            foreach (var item in AdminBaseModel.Menu)
+            foreach (var item in TeacherBaseModel.Menu)
             {
                 if (item.HasChild)
                 {
-                    <li class="nav-item has-treeview menu-open">
-                        <a href="#" class="nav-link">
+                    <li class="nav-item has-treeview menu-open border-bottom">
+                        <a href="#" class="nav-link text-dark">
                             <i class="nav-icon @item.Icon"></i>
                             <p>
                                 <span class="brand-text font-weight-bold">@item.Name</span>
@@ -21,7 +21,7 @@
                             @foreach (var child in item.ChildItems!)
                             {
                                 <li class="nav-item">
-                                    <a href="@child.Link" class="nav-link">
+                                    <a href="@child.Link" class="nav-link text-dark">
                                         <i class="@child.Icon"></i>
                                         <span class="brand-text font-weight-bold">@child.Name</span>
                                     </a>
@@ -32,9 +32,9 @@
                 }
                 else
                 {
-                    <li class="nav-item">
+                    <li class="nav-item border-bottom">
                         <a href="@item.Link" class="nav-link">
-                            <h5 class="text-white">
+                            <h5 class="text-dark">
                                 <i class="@item.Icon"></i>
                                 <span class="brand-text font-weight-bold">@item.Name</span>
                             </h5>

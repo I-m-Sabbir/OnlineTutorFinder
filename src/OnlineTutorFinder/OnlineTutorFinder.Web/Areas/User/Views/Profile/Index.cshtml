@@ -1,0 +1,58 @@
+﻿@model OnlineTutorFinder.Web.Areas.User.Models.ProfileModel
+@{
+    ViewData["Title"] = "User Profile";
+}
+
+@if (Model != null)
+{
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                Profile Information
+                <a asp-action="Edit" asp-controller="Profile" class="btn btn-warning btn-sm rounded float-right"><i class="fas fa-edit"></i>Edit Profile</a>
+            </div>
+            <div class="card-body">
+                <div class="col-xl-12 col-md-12 col-sm-12">
+                    <div class="row">
+                        <div class="col-xl-4 col-md-4 col-sm-12">
+
+                            @if (Model.PictureUrl != null)
+                            {
+                                <img src="@Model.PictureUrl" class="img-thumbnail" style="width:100%" />
+                            }
+                            else
+                            {
+                                <img src="~/Images/ProfilePictures/no-image.png" class="img-thumbnail" style="width:100%" />
+                            }
+
+                        </div>
+
+                        <div class="col-xl-8 col-md-8 col-sm-12 d-flex align-items-end">
+                            <table class="table table-responsive table-borderless">
+                                <tr>
+                                    <th>Name :</th>
+                                    <td>@Model.FirstName @Model.LastName</td>
+                                </tr>
+                                <tr>
+                                    <th>Email :</th>
+                                    <td>@Model.Email</td>
+                                </tr>
+                                <tr>
+                                    <th>Gender :</th>
+                                    <td>@Model.Gender</td>
+                                </tr>
+                                <tr>
+                                    <th>Address :</th>
+                                    <td>@Model.Address</td>
+                                </tr>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer"></div>
+        </div>
+    </div>
+
+}

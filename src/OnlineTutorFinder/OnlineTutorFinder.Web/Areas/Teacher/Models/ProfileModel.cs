@@ -2,12 +2,11 @@
 using OnlineTutorFinder.Web.Entities.Membership;
 using OnlineTutorFinder.Web.Extensions;
 using System.ComponentModel.DataAnnotations;
-using System.Xml.Linq;
 
-namespace OnlineTutorFinder.Web.Areas.Admin.Models
+namespace OnlineTutorFinder.Web.Areas.Teacher.Models
 {
-    [Authorize(Roles = "Admin")]
-    public class ProfileModel : AdminBaseModel
+    [Authorize(Roles = "Teacher")]
+    public class ProfileModel : TeacherBaseModel
     {
         [Required]
         [Display(Name = "First Name")]
@@ -44,7 +43,7 @@ namespace OnlineTutorFinder.Web.Areas.Admin.Models
         }
 
 
-        
+
         internal ApplicationUser Update(ApplicationUser user)
         {
             user.FirstName = this.FirstName;

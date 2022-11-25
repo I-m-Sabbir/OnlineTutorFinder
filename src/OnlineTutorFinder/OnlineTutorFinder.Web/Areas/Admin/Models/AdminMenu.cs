@@ -1,8 +1,9 @@
-﻿using Microsoft.AspNetCore.Http.Features;
+﻿using Microsoft.AspNetCore.Authorization;
 using OnlineTutorFinder.Web.Models;
 
 namespace OnlineTutorFinder.Web.Areas.Admin.Models
 {
+    [Authorize(Roles = "Teacher")]
     public class AdminMenu
     {
        public static IList<MenuItem> Items()

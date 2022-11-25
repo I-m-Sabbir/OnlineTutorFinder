@@ -1,14 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using OnlineTutorFinder.Web.Areas.Admin.Models;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using OnlineTutorFinder.Web.Areas.User.Models;
 using OnlineTutorFinder.Web.Services.Membership;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Authorization;
 
-namespace OnlineTutorFinder.Web.Areas.Admin.Controllers
+namespace OnlineTutorFinder.Web.Areas.User.Controllers
 {
-    [Area("Admin")]
-    [Authorize(Roles = "Admin")]
-    public class ProfileController : AdminBaseController<ProfileController>
+    [Area("User")]
+    [Authorize(Roles = "User")]
+    public class ProfileController : UserBaseController<ProfileController>
     {
         private readonly UserManager _userManager;
         private readonly IWebHostEnvironment _webhostEnvironment;
@@ -19,7 +18,6 @@ namespace OnlineTutorFinder.Web.Areas.Admin.Controllers
             _userManager = userManager;
             _webhostEnvironment = webhostEnvironment;
         }
-
         public async Task<IActionResult> Index()
         {
             var model = new ProfileModel();
@@ -48,8 +46,8 @@ namespace OnlineTutorFinder.Web.Areas.Admin.Controllers
                 var user = await _userManager.FindByNameAsync(User.Identity!.Name);
                 try
                 {
-                    if (model.Picture != null)
-                        model.PictureUrl = await PictureUpload(model.Picture ,user.Id);
+                    if(model.Picture != null)
+                        model.PictureUrl = await PictureUpload(model.Picture, user.Id);
                     var updated = model.Update(user);
                     var result = await _userManager.UpdateAsync(updated);
 
@@ -58,7 +56,7 @@ namespace OnlineTutorFinder.Web.Areas.Admin.Controllers
                         return RedirectToAction(nameof(Index));
                     }
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     _logger.LogError(ex, ex.Message);
                 }
@@ -79,6 +77,5 @@ namespace OnlineTutorFinder.Web.Areas.Admin.Controllers
             }
             return path;
         }
-
     }
 }

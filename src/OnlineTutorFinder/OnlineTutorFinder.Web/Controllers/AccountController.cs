@@ -44,6 +44,7 @@ namespace OnlineTutorFinder.Web.Controllers
                     Email = model.Email,
                     FirstName = model.FirstName,
                     LastName = model.LastName,
+                    Gender = model.Gender,
                     IsActive = true,
                 };
                 var result = await _userManager.CreateAsync(user, model.Password);

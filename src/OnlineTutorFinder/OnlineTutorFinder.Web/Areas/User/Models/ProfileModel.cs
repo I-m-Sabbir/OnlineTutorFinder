@@ -1,13 +1,14 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using OnlineTutorFinder.Web.Areas.Teacher.Models;
 using OnlineTutorFinder.Web.Entities.Membership;
 using OnlineTutorFinder.Web.Extensions;
 using System.ComponentModel.DataAnnotations;
 using System.Xml.Linq;
 
-namespace OnlineTutorFinder.Web.Areas.Admin.Models
+namespace OnlineTutorFinder.Web.Areas.User.Models
 {
-    [Authorize(Roles = "Admin")]
-    public class ProfileModel : AdminBaseModel
+    [Authorize(Roles = "User")]
+    public class ProfileModel : UserBaseModel
     {
         [Required]
         [Display(Name = "First Name")]
@@ -44,14 +45,14 @@ namespace OnlineTutorFinder.Web.Areas.Admin.Models
         }
 
 
-        
+
         internal ApplicationUser Update(ApplicationUser user)
         {
             user.FirstName = this.FirstName;
             user.LastName = this.LastName;
             user.Address = this.Address;
             user.Gender = this.Gender;
-            
+
             if(this.Picture != null)
                 user.ProfilePicture = this.PictureUrl;
 

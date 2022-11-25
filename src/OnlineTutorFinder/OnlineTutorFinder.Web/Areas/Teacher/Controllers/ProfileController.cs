@@ -1,14 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using OnlineTutorFinder.Web.Areas.Admin.Models;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using OnlineTutorFinder.Web.Areas.Teacher.Models;
 using OnlineTutorFinder.Web.Services.Membership;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Authorization;
 
-namespace OnlineTutorFinder.Web.Areas.Admin.Controllers
+namespace OnlineTutorFinder.Web.Areas.Teacher.Controllers
 {
-    [Area("Admin")]
-    [Authorize(Roles = "Admin")]
-    public class ProfileController : AdminBaseController<ProfileController>
+    [Area("Teacher")]
+    [Authorize(Roles = "Teacher")]
+    public class ProfileController : TeacherBaseController<ProfileController>
     {
         private readonly UserManager _userManager;
         private readonly IWebHostEnvironment _webhostEnvironment;
@@ -49,7 +48,7 @@ namespace OnlineTutorFinder.Web.Areas.Admin.Controllers
                 try
                 {
                     if (model.Picture != null)
-                        model.PictureUrl = await PictureUpload(model.Picture ,user.Id);
+                        model.PictureUrl = await PictureUpload(model.Picture, user.Id);
                     var updated = model.Update(user);
                     var result = await _userManager.UpdateAsync(updated);
 
@@ -58,7 +57,7 @@ namespace OnlineTutorFinder.Web.Areas.Admin.Controllers
                         return RedirectToAction(nameof(Index));
                     }
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     _logger.LogError(ex, ex.Message);
                 }
@@ -79,6 +78,5 @@ namespace OnlineTutorFinder.Web.Areas.Admin.Controllers
             }
             return path;
         }
-
     }
 }
