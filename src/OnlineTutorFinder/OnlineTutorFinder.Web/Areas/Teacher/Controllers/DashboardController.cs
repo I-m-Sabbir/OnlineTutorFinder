@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using OnlineTutorFinder.Web.Models.PostModels;
 
 namespace OnlineTutorFinder.Web.Areas.Teacher.Controllers
 {
@@ -19,10 +18,5 @@ namespace OnlineTutorFinder.Web.Areas.Teacher.Controllers
             return View();
         }
 
-        public IActionResult CreateSchedule()
-        {
-            var model = new AddSubjectScheduleModel();
-            return View(model);
-        }
     }
 }

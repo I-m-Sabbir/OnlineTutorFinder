@@ -1,4 +1,4 @@
-﻿namespace OnlineTutorFinder.Web.Models.PostModels
+﻿namespace OnlineTutorFinder.Web.Areas.Teacher.Models.PostModels
 {
     public class PostModel
     {

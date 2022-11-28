@@ -1,0 +1,90 @@
+﻿@model AddSubjectScheduleModel
+@{
+    ViewData["Title"] = "Subject Post";
+}
+
+<form asp-action="CreatePost" asp-antiforgery="true" method="post">
+    <div class="card">
+        <div class="card-header"><h3>Tution Information</h3></div>
+        <div class="card-body">
+
+            <div class="form-group row">
+                <label class="col-xl-4 col-md-4 col-sm-12 form-label" asp-for="SubjectName"></label>
+                <div class="col-xl-8 col-md-8 col-sm-12">
+                    <input class="form-control" asp-for="SubjectName" />
+                    <span class="text-danger" asp-validation-for="SubjectName"></span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-xl-4 col-md-4 col-sm-12 form-label" asp-for="StartTime"></label>
+                <div class="col-xl-8 col-md-8 col-sm-12">
+                    <input class="form-control" asp-for="StartTime" />
+                    <span class="text-danger" asp-validation-for="StartTime"></span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-xl-4 col-md-4 col-sm-12 form-label" asp-for="EndTime"></label>
+                <div class="col-xl-8 col-md-8 col-sm-12">
+                    <input class="form-control" asp-for="EndTime" />
+                    <span class="text-danger" asp-validation-for="EndTime"></span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-xl-4 col-md-4 col-sm-12 form-label" asp-for="DayOfWeeks"></label>
+                <div class=" d-flex justify-content-between">
+                    <div >
+                        
+                        <div>
+                            <input type="checkbox" name="DayOfWeeks" value="@DayOfWeek.Saturday" />
+                            <label>Saturday</label>
+                        </div>
+
+                        <div>
+                            <input type="checkbox" name="DayOfWeeks" value="@DayOfWeek.Sunday" />
+                            <label>Sunday</label>
+                        </div>
+
+                        <div>
+                            <input type="checkbox" name="DayOfWeeks" value="@DayOfWeek.Monday" />
+                            <label>Monday</label>
+                        </div>
+
+                        <div>
+                            <input type="checkbox" name="DayOfWeeks" value="@DayOfWeek.Tuesday" />
+                            <label>Tuesday</label>
+                        </div>
+
+                        <div>
+                            <input type="checkbox" name="DayOfWeeks" value="@DayOfWeek.Wednesday" />
+                            <label>Wednesday</label>
+                        </div>
+
+                        <div>
+                            <input type="checkbox" name="DayOfWeeks" value="@DayOfWeek.Thursday" />
+                            <label>Thursday</label>
+                        </div>
+
+                        <div>
+                            <input type="checkbox" name="DayOfWeeks" value="@DayOfWeek.Friday" />
+                            <label>Friday</label>
+                        </div>
+
+                    </div>
+                    <span class="text-danger" asp-validation-for="DayOfWeeks"></span>
+                </div>
+            </div>
+
+        </div>
+        <div class="card-footer">
+            <input type="submit" value="Submit" class="btn btn-outline-success rounded" />
+        </div>
+    </div>
+</form>
+
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+}

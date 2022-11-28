@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using OnlineTutorFinder.Web.Areas.Teacher.Models.PostModels;
 using OnlineTutorFinder.Web.DbContext;
 using OnlineTutorFinder.Web.Entities;
-using OnlineTutorFinder.Web.Models.PostModels;
 using System.Linq.Expressions;
 
 namespace OnlineTutorFinder.Web.Services
@@ -24,7 +24,7 @@ namespace OnlineTutorFinder.Web.Services
         {
             IQueryable<Schedule> schedules = _context.Schedules;
 
-            if(fiter != null)
+            if (fiter != null)
                 schedules = schedules.Where(fiter);
 
             schedules = schedules.Include(x => x.TeachingDays).Include(p => p.Subject);
@@ -33,7 +33,7 @@ namespace OnlineTutorFinder.Web.Services
 
             if (results.Count == 0)
                 throw new NullReferenceException();
-            
+
             var posts = new List<PostModel>();
             foreach (var item in results)
             {
@@ -42,7 +42,7 @@ namespace OnlineTutorFinder.Web.Services
                     StartTime = item.StartTime,
                     EndTime = item.Endtime,
                     SubjectName = item.Subject!.Name,
-                    TeachingDays = String.Join('-', item.TeachingDays!.Select(x => x.TeachingDay))
+                    TeachingDays = string.Join('-', item.TeachingDays!.Select(x => x.TeachingDay))
                 };
 
                 posts.Add(post);
@@ -51,10 +51,45 @@ namespace OnlineTutorFinder.Web.Services
             return posts;
         }
 
-        public async Task SavePostAsync()
+        public async Task SavePostAsync(AddSubjectScheduleModel model)
         {
+            try
+            {
+                var teachingDays = new List<TeachingDays>();
+                
+                foreach(var item in model.DayOfWeeks)
+                {
+                    teachingDays.Add(new TeachingDays { TeachingDay = item });
+                }
 
+                var subject = new Subject
+                {
+                    Name = model.SubjectName,
+                    TeacherId = model.TeacherId,
+                    SubjectScedules = new List<Schedule>()
+                    {
+                        new Schedule
+                        {
+                            StartTime = model.StartTime,
+                            Endtime = model.EndTime,
+                            TeachingDays = teachingDays,
+                        }
+                    }
+
+                };
+
+                await _context.Subjects.AddAsync(subject);
+                await _context.SaveChangesAsync();
+                
+            }
+
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
+
+
 
     }
 }
