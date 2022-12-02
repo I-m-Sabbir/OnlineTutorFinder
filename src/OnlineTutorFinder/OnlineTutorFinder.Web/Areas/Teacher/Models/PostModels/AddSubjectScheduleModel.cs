@@ -1,7 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Authorization;
+using System.ComponentModel.DataAnnotations;
 
 namespace OnlineTutorFinder.Web.Areas.Teacher.Models.PostModels
 {
+    [Authorize(Roles = "Teacher")]
     public class AddSubjectScheduleModel : TeacherBaseModel
     {
         [Required]
@@ -22,5 +24,6 @@ namespace OnlineTutorFinder.Web.Areas.Teacher.Models.PostModels
         public IList<DayOfWeek> DayOfWeeks { get; set; } = null!;
 
         public Guid TeacherId { get; set; }
+                        
     }
 }

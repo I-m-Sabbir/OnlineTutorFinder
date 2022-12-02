@@ -1,0 +1,22 @@
+﻿@model PostModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+@if (Model.PostModels!.Count > 0)
+{
+    <div class="d-flex justify-content-start pt-5">
+        @foreach (var item in Model.PostModels!)
+        {
+            <div class="card shadow-lg bg-info text-white m-2">
+                <div class="card-header"><h3>@item.SubjectName</h3></div>
+                <div class="card-body">
+                    <b>Time: </b>@item.StartTime - @item.EndTime <br />
+                    <b>Teaching Days: </b>@item.TeachingDays
+                </div>
+                <div class="card-footer"><h5>@item.Teacher</h5></div>
+            </div>
+        }
+    </div>
+}
+

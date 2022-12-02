@@ -9,6 +9,7 @@ namespace OnlineTutorFinder.Web.Services
     public interface IPostService
     {
         Task<IList<PostModel>> GetPosts(Expression<Func<Schedule, bool>> fiter = null!);
+        Task SavePostAsync(AddSubjectScheduleModel model);
     }
 
     public class PostService : IPostService
@@ -27,18 +28,22 @@ namespace OnlineTutorFinder.Web.Services
             if (fiter != null)
                 schedules = schedules.Where(fiter);
 
-            schedules = schedules.Include(x => x.TeachingDays).Include(p => p.Subject);
+            schedules = schedules.Include(x => x.TeachingDays)
+                .Include(p => p.Subject).ThenInclude(t => t.Teacher);
 
             var results = await schedules.ToListAsync();
 
             if (results.Count == 0)
                 throw new NullReferenceException();
 
+            
+
             var posts = new List<PostModel>();
             foreach (var item in results)
             {
                 var post = new PostModel
                 {
+                    Teacher = $"{item.Subject!.Teacher!.FirstName} {item.Subject.Teacher.LastName}",
                     StartTime = item.StartTime,
                     EndTime = item.Endtime,
                     SubjectName = item.Subject!.Name,

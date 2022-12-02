@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using OnlineTutorFinder.Web.DbContext;
 using OnlineTutorFinder.Web.Entities.Membership;
+using OnlineTutorFinder.Web.Services;
 using OnlineTutorFinder.Web.Services.Membership;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,12 +15,17 @@ builder.Configuration.SetBasePath(builder.Environment.ContentRootPath)
 
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+#region ServiceRegistrations
 
 builder.Services.AddScoped<SignInManager<ApplicationUser>>();
 builder.Services.AddScoped<UserManager<ApplicationUser>>();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString),ServiceLifetime.Scoped);
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+
+builder.Services.AddScoped<IPostService, PostService>();
+
+#endregion
 
 #region ApplicationUser Conffigure
 builder.Services
