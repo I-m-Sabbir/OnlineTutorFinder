@@ -13,10 +13,12 @@ namespace OnlineTutorFinder.Web.Areas.Teacher.Models.PostModels
 
         [Required]
         [Display(Name = "Start Time")]
+        [DataType(DataType.Time)]
         public TimeSpan StartTime { get; set; }
 
         [Required]
         [Display(Name = "End Time")]
+        [DataType(DataType.Time)]
         public TimeSpan EndTime { get; set; }
 
         [Required(ErrorMessage = "At Least Chose One Day.")]

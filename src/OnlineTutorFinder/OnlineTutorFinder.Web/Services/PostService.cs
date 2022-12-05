@@ -2,13 +2,14 @@
 using OnlineTutorFinder.Web.Areas.Teacher.Models.PostModels;
 using OnlineTutorFinder.Web.DbContext;
 using OnlineTutorFinder.Web.Entities;
+using OnlineTutorFinder.Web.Services.DTO;
 using System.Linq.Expressions;
 
 namespace OnlineTutorFinder.Web.Services
 {
     public interface IPostService
     {
-        Task<IList<PostModel>> GetPosts(Expression<Func<Schedule, bool>> fiter = null!);
+        Task<IList<PostModelDto>> GetPosts(Expression<Func<Schedule, bool>> fiter = null!);
         Task SavePostAsync(AddSubjectScheduleModel model);
     }
 
@@ -21,7 +22,7 @@ namespace OnlineTutorFinder.Web.Services
             _context = context;
         }
 
-        public async Task<IList<PostModel>> GetPosts(Expression<Func<Schedule, bool>> fiter = null!)
+        public async Task<IList<PostModelDto>> GetPosts(Expression<Func<Schedule, bool>> fiter = null!)
         {
             IQueryable<Schedule> schedules = _context.Schedules;
 
@@ -33,24 +34,23 @@ namespace OnlineTutorFinder.Web.Services
 
             var results = await schedules.ToListAsync();
 
-            if (results.Count == 0)
-                throw new NullReferenceException();
+            var posts = new List<PostModelDto>();
 
-            
-
-            var posts = new List<PostModel>();
-            foreach (var item in results)
+            if (results.Count > 0)
             {
-                var post = new PostModel
+                foreach (var item in results)
                 {
-                    Teacher = $"{item.Subject!.Teacher!.FirstName} {item.Subject.Teacher.LastName}",
-                    StartTime = item.StartTime,
-                    EndTime = item.Endtime,
-                    SubjectName = item.Subject!.Name,
-                    TeachingDays = string.Join('-', item.TeachingDays!.Select(x => x.TeachingDay))
-                };
+                    var post = new PostModelDto
+                    {
+                        Teacher = $"{item.Subject!.Teacher!.FirstName} {item.Subject.Teacher.LastName}",
+                        StartTime = item.StartTime,
+                        EndTime = item.Endtime,
+                        SubjectName = item.Subject!.Name,
+                        TeachingDays = string.Join('-', item.TeachingDays!.Select(x => x.TeachingDay))
+                    };
 
-                posts.Add(post);
+                    posts.Add(post);
+                }
             }
 
             return posts;
@@ -61,8 +61,8 @@ namespace OnlineTutorFinder.Web.Services
             try
             {
                 var teachingDays = new List<TeachingDays>();
-                
-                foreach(var item in model.DayOfWeeks)
+
+                foreach (var item in model.DayOfWeeks)
                 {
                     teachingDays.Add(new TeachingDays { TeachingDay = item });
                 }
@@ -85,7 +85,7 @@ namespace OnlineTutorFinder.Web.Services
 
                 await _context.Subjects.AddAsync(subject);
                 await _context.SaveChangesAsync();
-                
+
             }
 
             catch (Exception ex)

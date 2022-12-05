@@ -2,21 +2,32 @@
 @{
     ViewData["Title"] = "Index";
 }
-
-@if (Model.PostModels!.Count > 0)
-{
-    <div class="d-flex justify-content-start pt-5">
-        @foreach (var item in Model.PostModels!)
-        {
-            <div class="card shadow-lg bg-info text-white m-2">
-                <div class="card-header"><h3>@item.SubjectName</h3></div>
-                <div class="card-body">
-                    <b>Time: </b>@item.StartTime - @item.EndTime <br />
-                    <b>Teaching Days: </b>@item.TeachingDays
-                </div>
-                <div class="card-footer"><h5>@item.Teacher</h5></div>
-            </div>
-        }
+<div class="container-fluid">
+    <div class="float-right pt-2">
+        <a asp-action="CreatePost" class="btn btn-md btn-primary rounded"><i class="fas fa-plus-circle"></i>  Add a Tution Schedule</a>
     </div>
-}
 
+    @if (Model != null && Model.PostModels!.Count > 0)
+    {
+        <div class="d-flex justify-content-start pt-5">
+            @foreach (var item in Model.PostModels!)
+            {
+                <div class="card shadow-lg bg-info text-white m-2">
+                    <div class="card-header"><h3>@item.SubjectName</h3></div>
+                    <div class="card-body">
+                        <b>Time: </b>@item.StartTime - @item.EndTime <br />
+                        <b>Teaching Days: </b>@item.TeachingDays
+                    </div>
+                    <div class="card-footer"><h5>@item.Teacher</h5></div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="d-flex justify-content-center pt-5">
+            <h4 class="text-center text-warning">No Courses are Available</h4>
+        </div>
+    }
+
+</div>

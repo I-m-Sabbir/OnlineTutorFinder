@@ -20,16 +20,18 @@ namespace OnlineTutorFinder.Web.Areas.Teacher.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var list = new PostModel();
+            var model = new PostModel();
             try
             {
-                list.PostModels = await _postService.GetPosts();
+                var user = await _userManager.GetUserAsync(User);
+                var list = await _postService.GetPosts(x => x.Subject!.TeacherId == user.Id);
+                model.Map(list);
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, ex.Message);
             }
-            return View(list);
+            return View(model);
         }
 
         public IActionResult CreatePost()
@@ -45,7 +47,7 @@ namespace OnlineTutorFinder.Web.Areas.Teacher.Controllers
             {
                 try
                 {
-                    var user = await _userManager.FindByNameAsync(User.Identity!.Name);
+                    var user = await _userManager.GetUserAsync(User);
                     model.TeacherId = user.Id;
                     await _postService.SavePostAsync(model);
 
@@ -56,7 +58,7 @@ namespace OnlineTutorFinder.Web.Areas.Teacher.Controllers
 
                 }
             }
-            return View();
+            return RedirectToAction(nameof(Index));
         }
     }
 }

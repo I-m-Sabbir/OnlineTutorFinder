@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using OnlineTutorFinder.Web.Services.DTO;
 
-namespace OnlineTutorFinder.Web.Areas.Teacher.Models.PostModels
+namespace OnlineTutorFinder.Web.Areas.User.Models
 {
-    [Authorize(Roles = "Teacher")]
-    public class PostModel : TeacherBaseModel
+    [Authorize(Roles ="User")]
+    public class PostModel : UserBaseModel
     {
         public string? SubjectName { get; set; }
         public TimeSpan? StartTime { get; set; }
@@ -33,5 +33,4 @@ namespace OnlineTutorFinder.Web.Areas.Teacher.Models.PostModels
             this.PostModels = list;
         }
     }
-
 }

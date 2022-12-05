@@ -134,7 +134,7 @@ namespace OnlineTutorFinder.Web.Controllers
         [Authorize]
         public async Task<IActionResult> DashboardRedirect()
         {
-            var user = await _userManager.FindByNameAsync(User.Identity!.Name);
+            var user = await _userManager.GetUserAsync(User);
             var role = await _userManager.GetRolesAsync(user);
 
             if (role.FirstOrDefault() == "Admin")
