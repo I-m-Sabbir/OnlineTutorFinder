@@ -18,7 +18,7 @@ namespace OnlineTutorFinder.Web.Areas.Teacher.Models
                 new MenuItem
                 {
                     Name = "Tution",
-                    Link = "/Teacher/Post",
+                    Link = "/Teacher/Post/Index",
                     Icon = "fas fa-book",
                     HasChild = false,
                 },

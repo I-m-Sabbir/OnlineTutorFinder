@@ -60,5 +60,35 @@ namespace OnlineTutorFinder.Web.Areas.Teacher.Controllers
             }
             return RedirectToAction(nameof(Index));
         }
+
+        public async Task<IActionResult> Edit(Guid id)
+        {
+            var user = await _userManager.GetUserAsync(User);
+            try
+            {
+
+            }
+            catch(Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+            }
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpPost, ValidateAntiForgeryToken]
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            try
+            {
+
+            }
+            catch(Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+            }
+
+            return RedirectToAction(nameof(Index));
+        }
     }
 }

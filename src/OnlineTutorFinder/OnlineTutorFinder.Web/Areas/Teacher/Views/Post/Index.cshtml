@@ -12,13 +12,24 @@
         <div class="d-flex justify-content-start pt-5">
             @foreach (var item in Model.PostModels!)
             {
-                <div class="card shadow-lg bg-info text-white m-2">
+                <div class="card bg- shadow-lg m-2">
                     <div class="card-header"><h3>@item.SubjectName</h3></div>
                     <div class="card-body">
                         <b>Time: </b>@item.StartTime - @item.EndTime <br />
                         <b>Teaching Days: </b>@item.TeachingDays
+                        <h5><strong>@item.Teacher</strong></h5>
                     </div>
-                    <div class="card-footer"><h5>@item.Teacher</h5></div>
+                    <div class="card-footer">
+                        <div class="float-right">
+                            <a asp-action="Edit" asp-controller="Post" asp-route-id="@item.SubjectId"
+                       class="btn btn-outline-warning btn-sm rounded"><i class="fas fa-edit"></i><strong>Update</strong></a>
+
+                            <button type="button" class="btn btn-outline-danger btn-sm rounded show-modal"
+                            data-id="@item.SubjectId" data-toggle="modal" data-target="#modal-danger">
+                                <i class="fas fa-trash"></i> <strong>Delete</strong>
+                            </button>
+                        </div>
+                    </div>
                 </div>
             }
         </div>
@@ -29,5 +40,50 @@
             <h4 class="text-center text-warning">No Courses are Available</h4>
         </div>
     }
-
+    <button type="button" class="btn btn-md btn-info edit">Click Here</button>
 </div>
+
+<div class="modal fade" id="modal-danger" aria-modal="true" role="dialog">
+    <div class="modal-dialog">
+        <form asp-action="Delete" asp-controller="Post" asp-antiforgery="true" enctype="multipart/form-data" method="post">
+            <div class="modal-content bg-danger">
+                <div class="modal-header">
+                    <h5 class="modal-title">Delete Schedule</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Are You Sure, You Want to Delete This Record?</p>
+                    <input name="id" id="modalInput" hidden />
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-outline-light">Yes, Delete</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $(document).on("click", ".show-modal", function () {
+                var id = $(this).attr('data-id');
+                $("#modalInput").val(id);
+            });
+
+            $(document).on('click', '.edit', function () {
+                toastr.options = {
+                    "timeOut": "10000",
+                    "positionClass": "toast-top-right"
+                }
+                toastr.success('Hello world', 'Greeting');
+            });
+
+        });
+    </script>
+}

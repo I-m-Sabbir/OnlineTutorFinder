@@ -2,6 +2,7 @@
 {
     public class PostModelDto
     {
+        public Guid SubjectId { get; set; }
         public string? SubjectName { get; set; }
         public TimeSpan? StartTime { get; set; }
         public TimeSpan? EndTime { get; set; }

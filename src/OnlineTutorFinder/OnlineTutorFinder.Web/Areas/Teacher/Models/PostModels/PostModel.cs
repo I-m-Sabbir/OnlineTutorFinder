@@ -6,6 +6,7 @@ namespace OnlineTutorFinder.Web.Areas.Teacher.Models.PostModels
     [Authorize(Roles = "Teacher")]
     public class PostModel : TeacherBaseModel
     {
+        public Guid SubjectId { get; set; }
         public string? SubjectName { get; set; }
         public TimeSpan? StartTime { get; set; }
         public TimeSpan? EndTime { get; set; }
@@ -21,6 +22,7 @@ namespace OnlineTutorFinder.Web.Areas.Teacher.Models.PostModels
             {
                 var model = new PostModel
                 {
+                    SubjectId = post.SubjectId,
                     SubjectName = post.SubjectName,
                     StartTime = post.StartTime,
                     EndTime = post.EndTime,

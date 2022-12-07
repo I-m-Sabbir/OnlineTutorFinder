@@ -42,6 +42,7 @@ namespace OnlineTutorFinder.Web.Services
                 {
                     var post = new PostModelDto
                     {
+                        SubjectId = item.SubjectId,
                         Teacher = $"{item.Subject!.Teacher!.FirstName} {item.Subject.Teacher.LastName}",
                         StartTime = item.StartTime,
                         EndTime = item.Endtime,
