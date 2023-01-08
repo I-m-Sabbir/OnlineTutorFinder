@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using OnlineTutorFinder.Web.Areas.Teacher.Models;
+using ProfileModel = OnlineTutorFinder.Web.Areas.Teacher.Models.ProfileModel;
+using OnlineTutorFinder.Web.Extensions;
+using OnlineTutorFinder.Web.Models;
 using OnlineTutorFinder.Web.Services.Membership;
 
 namespace OnlineTutorFinder.Web.Areas.Teacher.Controllers
@@ -60,6 +62,11 @@ namespace OnlineTutorFinder.Web.Areas.Teacher.Controllers
                 catch (Exception ex)
                 {
                     _logger.LogError(ex, ex.Message);
+                    TempData.Put<ResponseModel>("ResponseMessage", new ResponseModel
+                    {
+                        Message = "Something Went Wrong! Can not Update.",
+                        Type = ResponseTypes.Danger
+                    });
                 }
 
             }

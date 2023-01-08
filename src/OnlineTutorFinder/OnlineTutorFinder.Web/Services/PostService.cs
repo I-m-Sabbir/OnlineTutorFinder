@@ -84,6 +84,9 @@ namespace OnlineTutorFinder.Web.Services
 
                 };
 
+                var count = _context.Schedules.Where(x => model.DayOfWeeks.Intersect(x.TeachingDays!.Select(t => t.TeachingDay)).Any()
+                && x.StartTime == model.StartTime && x.Subject!.TeacherId == model.TeacherId).Count();
+
                 await _context.Subjects.AddAsync(subject);
                 await _context.SaveChangesAsync();
 

@@ -1,0 +1,23 @@
+﻿@using OnlineTutorFinder.Web.Extensions
+
+@if (TempData.Peek<ResponseModel>("ResponseMessage") != null)
+{
+    var response = TempData.Get<ResponseModel>("ResponseMessage");
+    <input id="responseMessage" value="@response.Message" hidden readonly />
+    if (response.Type == ResponseTypes.Danger)
+    {
+        <script type="text/javascript">
+            window.onload = function () {
+                toastr.error(document.getElementById('responseMessage').value);
+            };
+        </script>
+    }
+    else if (response.Type == ResponseTypes.Success)
+    {
+        <script type="text/javascript">
+            window.onload = function () {
+                toastr.success(document.getElementById('responseMessage').value);
+            };
+        </script>
+    }
+}

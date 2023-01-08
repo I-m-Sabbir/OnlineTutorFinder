@@ -1,5 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using OnlineTutorFinder.Web.Areas.Teacher.Models;
 using OnlineTutorFinder.Web.Areas.Teacher.Models.PostModels;
+using OnlineTutorFinder.Web.Extensions;
+using OnlineTutorFinder.Web.Models;
 using OnlineTutorFinder.Web.Services;
 using OnlineTutorFinder.Web.Services.Membership;
 
@@ -55,7 +58,11 @@ namespace OnlineTutorFinder.Web.Areas.Teacher.Controllers
                 catch (Exception ex)
                 {
                     _logger.LogError(ex, ex.Message);
-
+                    TempData.Put<ResponseModel>("ResponseMessage", new ResponseModel
+                    {
+                        Message = "Something Went Wrong! Can not Post.",
+                        Type = ResponseTypes.Danger
+                    });
                 }
             }
             return RedirectToAction(nameof(Index));
