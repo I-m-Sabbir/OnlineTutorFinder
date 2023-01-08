@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore.Storage;
+using OnlineTutorFinder.Web.Entities.Membership;
 
 namespace OnlineTutorFinder.Web.Entities
 {

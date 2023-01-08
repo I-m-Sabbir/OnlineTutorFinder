@@ -53,7 +53,22 @@ namespace OnlineTutorFinder.Web.Areas.Teacher.Controllers
                     var user = await _userManager.GetUserAsync(User);
                     model.TeacherId = user.Id;
                     await _postService.SavePostAsync(model);
+                    
+                    TempData.Put<ResponseModel>("ResponseMessage", new ResponseModel
+                    {
+                        Message = "SuccessFully Posted.",
+                        Type = ResponseTypes.Success
+                    });
 
+                    return RedirectToAction(nameof(Index));
+                }
+                catch(DuplicateException dx)
+                {
+                    TempData.Put<ResponseModel>("ResponseMessage", new ResponseModel
+                    {
+                        Message = dx.Message,
+                        Type = ResponseTypes.Danger
+                    });
                 }
                 catch (Exception ex)
                 {
@@ -65,7 +80,8 @@ namespace OnlineTutorFinder.Web.Areas.Teacher.Controllers
                     });
                 }
             }
-            return RedirectToAction(nameof(Index));
+            
+            return View(model);
         }
 
         public async Task<IActionResult> Edit(Guid id)

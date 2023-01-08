@@ -2,6 +2,7 @@
 using OnlineTutorFinder.Web.Areas.Teacher.Models.PostModels;
 using OnlineTutorFinder.Web.DbContext;
 using OnlineTutorFinder.Web.Entities;
+using OnlineTutorFinder.Web.Extensions;
 using OnlineTutorFinder.Web.Services.DTO;
 using System.Linq.Expressions;
 
@@ -62,10 +63,12 @@ namespace OnlineTutorFinder.Web.Services
             try
             {
                 var teachingDays = new List<TeachingDays>();
+                var days = new List<int>();
 
                 foreach (var item in model.DayOfWeeks)
                 {
                     teachingDays.Add(new TeachingDays { TeachingDay = item });
+                    days.Add((int)item);
                 }
 
                 var subject = new Subject
@@ -83,16 +86,28 @@ namespace OnlineTutorFinder.Web.Services
                     }
 
                 };
+                                
+                string query = $@"
+SELECT s.Id
+FROM Schedules AS s
+INNER JOIN TeachingDays AS td ON td.ScheduleId = s.Id
+INNER JOIN Subjects AS sub ON sub.Id = s.SubjectId
+INNER JOIN AspNetUsers AS t ON t.Id = sub.TeacherId
+WHERE t.Id = '{model.TeacherId}'
+AND td.TeachingDay IN ({string.Join(',', days)})
+AND s.StartTime BETWEEN '{model.StartTime}' AND '{model.EndTime}'
+";
+                var count = _context.Schedules.FromSqlRaw<Schedule>(query).Count();
 
-                var count = _context.Schedules.Where(x => model.DayOfWeeks.Intersect(x.TeachingDays!.Select(t => t.TeachingDay)).Any()
-                && x.StartTime == model.StartTime && x.Subject!.TeacherId == model.TeacherId).Count();
+                if (count > 0)
+                    throw new DuplicateException("An Schedule with Same Day and Time Already Exist.");
 
                 await _context.Subjects.AddAsync(subject);
                 await _context.SaveChangesAsync();
 
             }
 
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }

@@ -3,29 +3,33 @@
     ViewData["Title"] = "Index";
 }
 <div class="container-fluid">
-   
-    @if (Model != null && Model.PostModels!.Count > 0)
-    {
-        <div class="d-flex justify-content-start pt-5">
-            @foreach (var item in Model.PostModels!)
-            {
-                <div class="card shadow-lg bg-success text-white m-2">
-                    <div class="card-header"><h3>@item.SubjectName</h3></div>
-                    <div class="card-body">
-                        <b>Time: </b>@item.StartTime - @item.EndTime <br />
-                        <b>Teaching Days: </b>@item.TeachingDays
+    <div class="col-xl-12 col-md-12 col-sm-12">
+        @if (Model != null && Model.PostModels!.Count > 0)
+        {
+            <div class="row">
+                @foreach (var item in Model.PostModels!)
+                {
+                    <div class="col-xl-3 col-md-4 col-sm-6">
+                        <div class="card shadow-lg bg-gradient-green text-white m-2">
+                            <div class="card-header"><h3>@item.SubjectName</h3></div>
+                            <div class="card-body">
+                                <b>Time: </b>@item.StartTime - @item.EndTime <br />
+                                <b>Teaching Days: </b>@item.TeachingDays
+                            </div>
+                            <div class="card-footer">
+                                <h5>@item.Teacher</h5><a asp-action="Request" asp-controller="Booking" asp-route-id="@item."
+                                                 class="btn btn-sm btn-danger rounded float-right">Request Booking</a>
+                            </div>
+                        </div>
                     </div>
-                    <div class="card-footer"><h5>@item.Teacher</h5><a asp-action="" asp-controller="" 
-                        class="btn btn-sm btn-danger rounded float-right">Request Booking</a></div>
-                </div>
-            }
-        </div>
-    }
-    else
-    {
-        <div class="d-flex justify-content-center pt-5">
-            <h4 class="text-center text-warning">No Courses are Available</h4>
-        </div>
-    }
-
+                }
+            </div>
+        }
+        else
+        {
+            <div class="d-flex justify-content-center pt-5">
+                <h4 class="text-center text-warning">No Courses are Available</h4>
+            </div>
+        }
+    </div>
 </div>

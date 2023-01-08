@@ -56,6 +56,12 @@ namespace OnlineTutorFinder.Web.Areas.Teacher.Controllers
 
                     if (result.Succeeded)
                     {
+                        TempData.Put<ResponseModel>("ResponseMessage", new ResponseModel
+                        {
+                            Message = "Successfully Updated.",
+                            Type = ResponseTypes.Success
+                        });
+
                         return RedirectToAction(nameof(Index));
                     }
                 }
