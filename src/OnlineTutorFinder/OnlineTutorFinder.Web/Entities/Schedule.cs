@@ -13,5 +13,6 @@ namespace OnlineTutorFinder.Web.Entities
         public Guid SubjectId { get; set; }
 
         public IList<TeachingDays>? TeachingDays { get; set; }
+        public IList<Enrollment>? Enrollments { get; set; }
     }
 }

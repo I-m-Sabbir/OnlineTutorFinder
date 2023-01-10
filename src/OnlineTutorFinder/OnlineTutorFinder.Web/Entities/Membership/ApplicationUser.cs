@@ -12,5 +12,6 @@ namespace OnlineTutorFinder.Web.Entities.Membership
         public bool IsActive { get; set; }
 
         public IList<Subject>? Subjects { get; set; }
+        public IList<Enrollment>? Enrollments { get; set; }
     }
 }

@@ -46,6 +46,18 @@ namespace OnlineTutorFinder.Web.DbContext
                 .HasForeignKey(p => p.ScheduleId)
                 .OnDelete(DeleteBehavior.Cascade);
 
+            builder.Entity<Enrollment>()
+                .HasOne(x => x.EnrollUser)
+                .WithMany(p => p.Enrollments)
+                .HasForeignKey(k => k.EnrollUserId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            builder.Entity<Enrollment>()
+                .HasOne(x => x.Schedule)
+                .WithMany(p => p.Enrollments)
+                .HasForeignKey(k => k.ScheduleId)
+                .OnDelete(DeleteBehavior.NoAction);
+
             base.OnModelCreating(builder);
         }
 
