@@ -12,7 +12,7 @@ using OnlineTutorFinder.Web.DbContext;
 namespace OnlineTutorFinder.Web.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221122105413_InitialMigration")]
+    [Migration("20230108115034_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -112,7 +112,7 @@ namespace OnlineTutorFinder.Web.Data.Migrations
                         {
                             Id = new Guid("8e445865-a24d-4543-a6c6-9443d048cdb9"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "f25527c3-7c02-4574-bdaa-537614a5e39e",
+                            ConcurrencyStamp = "8db8b65c-3ea0-4eca-8d97-4a3356ef2000",
                             Email = "Superadmin@gmail.com",
                             EmailConfirmed = true,
                             FirstName = "Super Admin",
@@ -122,7 +122,7 @@ namespace OnlineTutorFinder.Web.Data.Migrations
                             LockoutEnabled = true,
                             NormalizedEmail = "SUPERADMIN@GMAIL.COM",
                             NormalizedUserName = "SUPERADMIN@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEJLAH0AtSO9ayTjPn0vSgHrZmlEFIiQlfQjfrJi874+dbLpCZvv+qLCZaoDqwT1E/A==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEAJdTpxiUa3aJ4GmT2k2Gj0Il3VMcAgWlllhw20oDPNlJF2rxaRAHNBUJWylsMwvMg==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "8e445865-a24d-4543-a6c6-9443d048cdb8",
                             TwoFactorEnabled = false,
@@ -161,21 +161,21 @@ namespace OnlineTutorFinder.Web.Data.Migrations
                         new
                         {
                             Id = new Guid("2c5e174e-3b0e-446f-86af-483d56fd7210"),
-                            ConcurrencyStamp = "638047328537875966",
+                            ConcurrencyStamp = "638087970339296203",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = new Guid("2c5e174e-3b0e-446f-86af-483d56fd7211"),
-                            ConcurrencyStamp = "638047329137875985",
+                            ConcurrencyStamp = "638087970939296220",
                             Name = "Teacher",
                             NormalizedName = "TEACHER"
                         },
                         new
                         {
                             Id = new Guid("2c5e174e-3b0e-446f-86af-483d56fd7212"),
-                            ConcurrencyStamp = "638047329737875992",
+                            ConcurrencyStamp = "638087971539296256",
                             Name = "User",
                             NormalizedName = "USER"
                         });

@@ -223,15 +223,15 @@ namespace OnlineTutorFinder.Web.Data.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { new Guid("2c5e174e-3b0e-446f-86af-483d56fd7210"), "638047328537875966", "Admin", "ADMIN" },
-                    { new Guid("2c5e174e-3b0e-446f-86af-483d56fd7211"), "638047329137875985", "Teacher", "TEACHER" },
-                    { new Guid("2c5e174e-3b0e-446f-86af-483d56fd7212"), "638047329737875992", "User", "USER" }
+                    { new Guid("2c5e174e-3b0e-446f-86af-483d56fd7210"), "638087970339296203", "Admin", "ADMIN" },
+                    { new Guid("2c5e174e-3b0e-446f-86af-483d56fd7211"), "638087970939296220", "Teacher", "TEACHER" },
+                    { new Guid("2c5e174e-3b0e-446f-86af-483d56fd7212"), "638087971539296256", "User", "USER" }
                 });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "Address", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "Gender", "IsActive", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "ProfilePicture", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { new Guid("8e445865-a24d-4543-a6c6-9443d048cdb9"), 0, null, "f25527c3-7c02-4574-bdaa-537614a5e39e", "Superadmin@gmail.com", true, "Super Admin", "Male", true, "", true, null, "SUPERADMIN@GMAIL.COM", "SUPERADMIN@GMAIL.COM", "AQAAAAEAACcQAAAAEJLAH0AtSO9ayTjPn0vSgHrZmlEFIiQlfQjfrJi874+dbLpCZvv+qLCZaoDqwT1E/A==", null, false, null, "8e445865-a24d-4543-a6c6-9443d048cdb8", false, "Superadmin@gmail.com" });
+                values: new object[] { new Guid("8e445865-a24d-4543-a6c6-9443d048cdb9"), 0, null, "8db8b65c-3ea0-4eca-8d97-4a3356ef2000", "Superadmin@gmail.com", true, "Super Admin", "Male", true, "", true, null, "SUPERADMIN@GMAIL.COM", "SUPERADMIN@GMAIL.COM", "AQAAAAEAACcQAAAAEAJdTpxiUa3aJ4GmT2k2Gj0Il3VMcAgWlllhw20oDPNlJF2rxaRAHNBUJWylsMwvMg==", null, false, null, "8e445865-a24d-4543-a6c6-9443d048cdb8", false, "Superadmin@gmail.com" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
