@@ -24,6 +24,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddScoped<IPostService, PostService>();
+builder.Services.AddScoped<ICourseEnrollmentService, CourseEnrollmentService>();
 
 #endregion
 

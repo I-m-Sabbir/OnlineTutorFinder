@@ -1,28 +1,27 @@
 ﻿using OnlineTutorFinder.Web.Models;
 
-namespace OnlineTutorFinder.Web.Areas.Teacher.Models
+namespace OnlineTutorFinder.Web.Areas.Teacher.Models;
+
+public class TeacherMenu
 {
-    public class TeacherMenu
+    public static IList<MenuItem> Items()
     {
-        public static IList<MenuItem> Items()
+        return new List<MenuItem>
         {
-            return new List<MenuItem>
+            new MenuItem
             {
-                new MenuItem
-                {
-                    Name = "Profile",
-                    Link = "/Teacher/Profile/Index",
-                    Icon = "fas fa-user",
-                    HasChild = false,
-                },
-                new MenuItem
-                {
-                    Name = "Tution",
-                    Link = "/Teacher/Post/Index",
-                    Icon = "fas fa-book",
-                    HasChild = false,
-                },
-            };
-        }
+                Name = "Profile",
+                Link = "/Teacher/Profile/Index",
+                Icon = "fas fa-user",
+                HasChild = false,
+            },
+            new MenuItem
+            {
+                Name = "Tution",
+                Link = "/Teacher/Post/Index",
+                Icon = "fas fa-book",
+                HasChild = false,
+            },
+        };
     }
 }

@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>AdminLTE 3 | @ViewData["Title"]</title>
+    <title>Tutor Finder | @ViewData["Title"]</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Font Awesome -->
@@ -13,6 +13,10 @@
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- Tempusdominus Bbootstrap 4 -->
     <link rel="stylesheet" href="~/adminlte/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+    <!--DateRange Picker-->
+    <link rel="stylesheet" href="~/adminlte/plugins/daterangepicker/daterangepicker.css" />
+    <!--Toastr-->
+    <link rel="stylesheet" href="~/adminlte/plugins/toastr/toastr.min.css" />
     <!-- Theme style -->
     <link rel="stylesheet" href="~/adminlte/css/adminlte.min.css">
     <!-- overlayScrollbars -->
@@ -80,7 +84,7 @@
             <!-- /.content-header -->
             <!-- Main content -->
             <section class="content">
-                @*<partial name="_ResponsePartial" />*@
+                <partial name="_ResponsePartial" />
                 @RenderBody()
             </section>
             <!-- /.content -->
@@ -112,6 +116,12 @@
     <!-- Bootstrap 4 -->
     <script src="~/adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
+    <!--Moment Js-->
+    <script src="~/adminlte/plugins/moment/moment.min.js"></script>
+    <!--DateRange Picker-->
+    <script src="~/adminlte/plugins/daterangepicker/daterangepicker.js"></script>
+    <!--Toastr-->
+    <script src="~/adminlte/plugins/toastr/toastr.min.js"></script>
     <!-- Tempusdominus Bootstrap 4 -->
     <script src="~/adminlte/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
     <!-- Summernote -->

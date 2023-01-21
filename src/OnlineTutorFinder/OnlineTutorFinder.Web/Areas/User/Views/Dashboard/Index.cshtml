@@ -17,8 +17,8 @@
                                 <b>Teaching Days: </b>@item.TeachingDays
                             </div>
                             <div class="card-footer">
-                                <h5>@item.Teacher</h5><a asp-action="Request" asp-controller="Booking" asp-route-id="@item."
-                                                 class="btn btn-sm btn-danger rounded float-right">Request Booking</a>
+                                <h5>@item.Teacher</h5><a asp-action="RequestEnroll" asp-controller="Booking" asp-route-id="@item.ScheduleId"
+                                                 asp-route-returnUlr="@Model.ReturnURL" class="btn btn-sm btn-danger rounded float-right">Request Booking</a>
                             </div>
                         </div>
                     </div>

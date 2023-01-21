@@ -6,112 +6,111 @@ using OnlineTutorFinder.Web.Models;
 using OnlineTutorFinder.Web.Services;
 using OnlineTutorFinder.Web.Services.Membership;
 
-namespace OnlineTutorFinder.Web.Areas.Teacher.Controllers
+namespace OnlineTutorFinder.Web.Areas.Teacher.Controllers;
+
+public class PostController : TeacherBaseController<PostController>
 {
-    public class PostController : TeacherBaseController<PostController>
+    private readonly UserManager _userManager;
+    private readonly IPostService _postService;
+
+    public PostController(ILogger<PostController> logger, UserManager userManager,
+        IPostService postService)
+        : base(logger)
     {
-        private readonly UserManager _userManager;
-        private readonly IPostService _postService;
+        _userManager = userManager;
+        _postService = postService;
+    }
 
-        public PostController(ILogger<PostController> logger, UserManager userManager,
-            IPostService postService)
-            : base(logger)
+    public async Task<IActionResult> Index()
+    {
+        var model = new PostModel();
+        try
         {
-            _userManager = userManager;
-            _postService = postService;
+            var user = await _userManager.GetUserAsync(User);
+            var list = await _postService.GetPosts(x => x.Subject!.TeacherId == user.Id);
+            model.Map(list);
         }
-
-        public async Task<IActionResult> Index()
+        catch (Exception ex)
         {
-            var model = new PostModel();
+            _logger.LogError(ex, ex.Message);
+        }
+        return View(model);
+    }
+
+    public IActionResult CreatePost()
+    {
+        var model = new AddSubjectScheduleModel();
+        return View(model);
+    }
+
+    [HttpPost, ValidateAntiForgeryToken]
+    public async Task<IActionResult> CreatePost(AddSubjectScheduleModel model)
+    {
+        if (ModelState.IsValid)
+        {
             try
             {
                 var user = await _userManager.GetUserAsync(User);
-                var list = await _postService.GetPosts(x => x.Subject!.TeacherId == user.Id);
-                model.Map(list);
+                model.TeacherId = user.Id;
+                await _postService.SavePostAsync(model);
+                
+                TempData.Put<ResponseModel>("ResponseMessage", new ResponseModel
+                {
+                    Message = "SuccessFully Posted.",
+                    Type = ResponseTypes.Success
+                });
+
+                return RedirectToAction(nameof(Index));
+            }
+            catch(DuplicateException dx)
+            {
+                TempData.Put<ResponseModel>("ResponseMessage", new ResponseModel
+                {
+                    Message = dx.Message,
+                    Type = ResponseTypes.Danger
+                });
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, ex.Message);
-            }
-            return View(model);
-        }
-
-        public IActionResult CreatePost()
-        {
-            var model = new AddSubjectScheduleModel();
-            return View(model);
-        }
-
-        [HttpPost, ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreatePost(AddSubjectScheduleModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                try
+                TempData.Put<ResponseModel>("ResponseMessage", new ResponseModel
                 {
-                    var user = await _userManager.GetUserAsync(User);
-                    model.TeacherId = user.Id;
-                    await _postService.SavePostAsync(model);
-                    
-                    TempData.Put<ResponseModel>("ResponseMessage", new ResponseModel
-                    {
-                        Message = "SuccessFully Posted.",
-                        Type = ResponseTypes.Success
-                    });
-
-                    return RedirectToAction(nameof(Index));
-                }
-                catch(DuplicateException dx)
-                {
-                    TempData.Put<ResponseModel>("ResponseMessage", new ResponseModel
-                    {
-                        Message = dx.Message,
-                        Type = ResponseTypes.Danger
-                    });
-                }
-                catch (Exception ex)
-                {
-                    _logger.LogError(ex, ex.Message);
-                    TempData.Put<ResponseModel>("ResponseMessage", new ResponseModel
-                    {
-                        Message = "Something Went Wrong! Can not Post.",
-                        Type = ResponseTypes.Danger
-                    });
-                }
+                    Message = "Something Went Wrong! Can not Post.",
+                    Type = ResponseTypes.Danger
+                });
             }
-            
-            return View(model);
         }
+        
+        return View(model);
+    }
 
-        public async Task<IActionResult> Edit(Guid id)
+    public async Task<IActionResult> Edit(Guid id)
+    {
+        var user = await _userManager.GetUserAsync(User);
+        try
         {
-            var user = await _userManager.GetUserAsync(User);
-            try
-            {
 
-            }
-            catch(Exception ex)
-            {
-                _logger.LogError(ex, ex.Message);
-            }
-
-            return RedirectToAction(nameof(Index));
         }
-
-        [HttpPost, ValidateAntiForgeryToken]
-        public async Task<IActionResult> Delete(Guid id)
+        catch(Exception ex)
         {
-            try
-            {
-
-            }
-            catch(Exception ex)
-            {
-                _logger.LogError(ex, ex.Message);
-            }
-
-            return RedirectToAction(nameof(Index));
+            _logger.LogError(ex, ex.Message);
         }
+
+        return RedirectToAction(nameof(Index));
+    }
+
+    [HttpPost, ValidateAntiForgeryToken]
+    public async Task<IActionResult> Delete(Guid id)
+    {
+        try
+        {
+
+        }
+        catch(Exception ex)
+        {
+            _logger.LogError(ex, ex.Message);
+        }
+
+        return RedirectToAction(nameof(Index));
     }
 }

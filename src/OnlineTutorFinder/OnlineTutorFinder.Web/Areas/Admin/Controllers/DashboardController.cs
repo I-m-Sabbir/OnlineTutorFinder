@@ -1,19 +1,16 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using OnlineTutorFinder.Web.Areas.Admin.Models;
+﻿using Microsoft.AspNetCore.Mvc;
 
-namespace OnlineTutorFinder.Web.Areas.Admin.Controllers
+namespace OnlineTutorFinder.Web.Areas.Admin.Controllers;
+
+public class DashboardController : AdminBaseController<DashboardController>
 {
-    public class DashboardController : AdminBaseController<DashboardController>
+    public DashboardController(ILogger<DashboardController> logger)
+        :base(logger)
     {
-        public DashboardController(ILogger<DashboardController> logger)
-            :base(logger)
-        {
-            
-        }
-        public IActionResult Index()
-        {
-            return View();
-        }
+        
+    }
+    public IActionResult Index()
+    {
+        return View();
     }
 }

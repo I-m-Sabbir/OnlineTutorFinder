@@ -200,6 +200,31 @@ namespace OnlineTutorFinder.Web.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Enrollments",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    EnrollUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ScheduleId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Status = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Enrollments", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Enrollments_AspNetUsers_EnrollUserId",
+                        column: x => x.EnrollUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Enrollments_Schedules_ScheduleId",
+                        column: x => x.ScheduleId,
+                        principalTable: "Schedules",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "TeachingDays",
                 columns: table => new
                 {
@@ -223,15 +248,15 @@ namespace OnlineTutorFinder.Web.Data.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { new Guid("2c5e174e-3b0e-446f-86af-483d56fd7210"), "638087970339296203", "Admin", "ADMIN" },
-                    { new Guid("2c5e174e-3b0e-446f-86af-483d56fd7211"), "638087970939296220", "Teacher", "TEACHER" },
-                    { new Guid("2c5e174e-3b0e-446f-86af-483d56fd7212"), "638087971539296256", "User", "USER" }
+                    { new Guid("2c5e174e-3b0e-446f-86af-483d56fd7210"), "638099002850201349", "Admin", "ADMIN" },
+                    { new Guid("2c5e174e-3b0e-446f-86af-483d56fd7211"), "638099003450201365", "Teacher", "TEACHER" },
+                    { new Guid("2c5e174e-3b0e-446f-86af-483d56fd7212"), "638099004050201374", "User", "USER" }
                 });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "Address", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "Gender", "IsActive", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "ProfilePicture", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { new Guid("8e445865-a24d-4543-a6c6-9443d048cdb9"), 0, null, "8db8b65c-3ea0-4eca-8d97-4a3356ef2000", "Superadmin@gmail.com", true, "Super Admin", "Male", true, "", true, null, "SUPERADMIN@GMAIL.COM", "SUPERADMIN@GMAIL.COM", "AQAAAAEAACcQAAAAEAJdTpxiUa3aJ4GmT2k2Gj0Il3VMcAgWlllhw20oDPNlJF2rxaRAHNBUJWylsMwvMg==", null, false, null, "8e445865-a24d-4543-a6c6-9443d048cdb8", false, "Superadmin@gmail.com" });
+                values: new object[] { new Guid("8e445865-a24d-4543-a6c6-9443d048cdb9"), 0, null, "9739ca24-2ea6-4940-a8a9-d1c3efe823b2", "Superadmin@gmail.com", true, "Super Admin", "Male", true, "", true, null, "SUPERADMIN@GMAIL.COM", "SUPERADMIN@GMAIL.COM", "AQAAAAEAACcQAAAAEJypB2zytu+WcAWhJzHpx/uocp+YIFjlKf7Wgk/3WH+kS609QFRsjlTPZ5GTk/0mDg==", null, false, null, "8e445865-a24d-4543-a6c6-9443d048cdb8", false, "Superadmin@gmail.com" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
@@ -278,6 +303,16 @@ namespace OnlineTutorFinder.Web.Data.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Enrollments_EnrollUserId",
+                table: "Enrollments",
+                column: "EnrollUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Enrollments_ScheduleId",
+                table: "Enrollments",
+                column: "ScheduleId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Schedules_SubjectId",
                 table: "Schedules",
                 column: "SubjectId");
@@ -309,6 +344,9 @@ namespace OnlineTutorFinder.Web.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "Enrollments");
 
             migrationBuilder.DropTable(
                 name: "TeachingDays");

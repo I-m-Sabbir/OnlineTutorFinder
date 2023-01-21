@@ -1,0 +1,45 @@
+﻿@model EnrolledCoursesModel
+
+@{
+    ViewData["Title"] = "Pending Courses";
+}
+
+<br />
+<div class="container">
+    <div class="col-xl-12 col-md-12 col-sm-12">
+        @if (Model != null && Model.EnrolledCourses != null && Model.EnrolledCourses.Count > 0)
+        {
+            <table class="table table-responsive table-bordered table-striped table-hover text-center">
+                <thead class="bg-gradient-gray">
+                    <tr>
+                        <th style="width: 20%;">Subject</th>
+                        <th style="width: 20%;">Tution Time</th>
+                        <th style="width: 20%;">Tution Days</th>
+                        <th style="width: 20%;">Teacher</th>
+                        <th style="width: 20%;">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.EnrolledCourses)
+                    {
+                        <tr>
+                            <td>@item.SubjectName</td>
+                            <td>@item.StartTime - @item.EndTime</td>
+                            <td>@item.TeachingDays</td>
+                            <td>@item.TeacherName</td>
+                            <td>
+                                <button href="#" class="btn btn-sm btn-outline-danger rounded">Cencel Request</button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+        }
+        else
+        {
+            <br />
+            <h3 class="text-center"><span class="bg-gradient-yellow p-2">Currently You Have No Pending Courses Available.</span></h3>
+        }
+    </div>
+</div>

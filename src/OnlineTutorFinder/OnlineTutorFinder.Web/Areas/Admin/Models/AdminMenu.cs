@@ -1,24 +1,23 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using OnlineTutorFinder.Web.Models;
 
-namespace OnlineTutorFinder.Web.Areas.Admin.Models
+namespace OnlineTutorFinder.Web.Areas.Admin.Models;
+
+[Authorize(Roles = "Teacher")]
+public class AdminMenu
 {
-    [Authorize(Roles = "Teacher")]
-    public class AdminMenu
+   public static IList<MenuItem> Items()
     {
-       public static IList<MenuItem> Items()
+        return new List<MenuItem>
         {
-            return new List<MenuItem>
+            new MenuItem
             {
-                new MenuItem
-                {
-                    Name = "Profile",
-                    Link = "/Admin/Profile/Index",
-                    Icon = "fas fa-user",
-                    HasChild = false,
-                },
-                
-            };
-        }
+                Name = "Profile",
+                Link = "/Admin/Profile/Index",
+                Icon = "fas fa-user",
+                HasChild = false,
+            },
+            
+        };
     }
 }

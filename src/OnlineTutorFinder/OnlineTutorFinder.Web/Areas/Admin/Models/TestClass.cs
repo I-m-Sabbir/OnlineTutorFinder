@@ -1,6 +1,5 @@
-﻿namespace OnlineTutorFinder.Web.Areas.Admin.Models
+﻿namespace OnlineTutorFinder.Web.Areas.Admin.Models;
+
+public class TestClass
 {
-    public class TestClass
-    {
-    }
 }

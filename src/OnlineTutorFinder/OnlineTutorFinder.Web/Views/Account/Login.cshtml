@@ -2,34 +2,35 @@
 @{
     ViewData["Title"] = "Log in";
 }
-
-<div class="login_wrapper bg-info shadow">
-    <div class="animate form login_form d-flex justify-content-center">
-        <section class="login_content w-50">
-            <form id="account" method="post" asp-action="Login" asp-controller="Account" asp-area="" asp-antiforgery="true">
-                <h2 class="text-center">Login</h2>
-                <hr />
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <div class="pb-3">
-                    <input asp-for="Email" class="form-control" autocomplete="username" aria-required="true" placeholder="Email" />
-                    <span asp-validation-for="Email" class="text-danger"></span>
-                </div>
-                <div class="pb-3">
-                    <input asp-for="Password" class="form-control" autocomplete="current-password" aria-required="true" placeholder="Password" />
-                    <span asp-validation-for="Password" class="text-danger"></span>
-                </div>
-                <input asp-for="ReturnUrl" hidden />
-                <div class="pb-3 d-flex justify-content-between">
-                    <button id="login-submit" type="submit" class="btn btn-primary btn-md rounded">Log in</button>
-                    <a class="reset_pass" href="#">Lost your password?</a>
-                </div>
-                <div class="clearfix"></div>
-                <div class="separator">
+<div class="p-5">
+    <div class="login_wrapper bg-info shadow p-5">
+        <div class="animate form login_form d-flex justify-content-center">
+            <section class="login_content w-50">
+                <form id="account" method="post" asp-action="Login" asp-controller="Account" asp-area="" asp-antiforgery="true">
+                    <h2 class="text-center">Login</h2>
+                    <hr />
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="pb-3">
+                        <input asp-for="Email" class="form-control" autocomplete="username" aria-required="true" placeholder="Email" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                    <div class="pb-3">
+                        <input asp-for="Password" class="form-control" autocomplete="current-password" aria-required="true" placeholder="Password" />
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+                    <input asp-for="ReturnUrl" hidden />
+                    <div class="pb-3 d-flex justify-content-between">
+                        <button id="login-submit" type="submit" class="btn btn-primary btn-md rounded">Log in</button>
+                        <a class="reset_pass" href="#">Lost your password?</a>
+                    </div>
                     <div class="clearfix"></div>
-                    <br />
-                </div>
-            </form>
-        </section>
+                    <div class="separator">
+                        <div class="clearfix"></div>
+                        <br />
+                    </div>
+                </form>
+            </section>
+        </div>
     </div>
 </div>
 

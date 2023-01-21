@@ -22,6 +22,33 @@ namespace OnlineTutorFinder.Web.Data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
+            modelBuilder.Entity("OnlineTutorFinder.Web.Entities.Enrollment", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("EnrollUserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ScheduleId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EnrollUserId");
+
+                    b.HasIndex("ScheduleId");
+
+                    b.ToTable("Enrollments");
+                });
+
             modelBuilder.Entity("OnlineTutorFinder.Web.Entities.Membership.ApplicationUser", b =>
                 {
                     b.Property<Guid>("Id")
@@ -110,7 +137,7 @@ namespace OnlineTutorFinder.Web.Data.Migrations
                         {
                             Id = new Guid("8e445865-a24d-4543-a6c6-9443d048cdb9"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "8db8b65c-3ea0-4eca-8d97-4a3356ef2000",
+                            ConcurrencyStamp = "9739ca24-2ea6-4940-a8a9-d1c3efe823b2",
                             Email = "Superadmin@gmail.com",
                             EmailConfirmed = true,
                             FirstName = "Super Admin",
@@ -120,7 +147,7 @@ namespace OnlineTutorFinder.Web.Data.Migrations
                             LockoutEnabled = true,
                             NormalizedEmail = "SUPERADMIN@GMAIL.COM",
                             NormalizedUserName = "SUPERADMIN@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEAJdTpxiUa3aJ4GmT2k2Gj0Il3VMcAgWlllhw20oDPNlJF2rxaRAHNBUJWylsMwvMg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEJypB2zytu+WcAWhJzHpx/uocp+YIFjlKf7Wgk/3WH+kS609QFRsjlTPZ5GTk/0mDg==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "8e445865-a24d-4543-a6c6-9443d048cdb8",
                             TwoFactorEnabled = false,
@@ -159,21 +186,21 @@ namespace OnlineTutorFinder.Web.Data.Migrations
                         new
                         {
                             Id = new Guid("2c5e174e-3b0e-446f-86af-483d56fd7210"),
-                            ConcurrencyStamp = "638087970339296203",
+                            ConcurrencyStamp = "638099002850201349",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = new Guid("2c5e174e-3b0e-446f-86af-483d56fd7211"),
-                            ConcurrencyStamp = "638087970939296220",
+                            ConcurrencyStamp = "638099003450201365",
                             Name = "Teacher",
                             NormalizedName = "TEACHER"
                         },
                         new
                         {
                             Id = new Guid("2c5e174e-3b0e-446f-86af-483d56fd7212"),
-                            ConcurrencyStamp = "638087971539296256",
+                            ConcurrencyStamp = "638099004050201374",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -349,6 +376,25 @@ namespace OnlineTutorFinder.Web.Data.Migrations
                     b.ToTable("TeachingDays");
                 });
 
+            modelBuilder.Entity("OnlineTutorFinder.Web.Entities.Enrollment", b =>
+                {
+                    b.HasOne("OnlineTutorFinder.Web.Entities.Membership.ApplicationUser", "EnrollUser")
+                        .WithMany("Enrollments")
+                        .HasForeignKey("EnrollUserId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("OnlineTutorFinder.Web.Entities.Schedule", "Schedule")
+                        .WithMany("Enrollments")
+                        .HasForeignKey("ScheduleId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("EnrollUser");
+
+                    b.Navigation("Schedule");
+                });
+
             modelBuilder.Entity("OnlineTutorFinder.Web.Entities.Membership.RoleClaim", b =>
                 {
                     b.HasOne("OnlineTutorFinder.Web.Entities.Membership.Role", null)
@@ -435,11 +481,15 @@ namespace OnlineTutorFinder.Web.Data.Migrations
 
             modelBuilder.Entity("OnlineTutorFinder.Web.Entities.Membership.ApplicationUser", b =>
                 {
+                    b.Navigation("Enrollments");
+
                     b.Navigation("Subjects");
                 });
 
             modelBuilder.Entity("OnlineTutorFinder.Web.Entities.Schedule", b =>
                 {
+                    b.Navigation("Enrollments");
+
                     b.Navigation("TeachingDays");
                 });
 

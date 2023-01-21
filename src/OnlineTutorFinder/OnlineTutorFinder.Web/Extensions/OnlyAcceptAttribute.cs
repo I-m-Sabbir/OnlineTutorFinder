@@ -1,27 +1,26 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace OnlineTutorFinder.Web.Extensions
+namespace OnlineTutorFinder.Web.Extensions;
+
+public class OnlyAcceptAttribute : ValidationAttribute
 {
-    public class OnlyAcceptAttribute : ValidationAttribute
+    private readonly string[] _acceptedvalues;
+
+    public OnlyAcceptAttribute(params string[] acceptedvalues)
     {
-        private readonly string[] _acceptedvalues;
+        _acceptedvalues = acceptedvalues;
+    }
 
-        public OnlyAcceptAttribute(params string[] acceptedvalues)
+    public override bool IsValid(object? value)
+    {
+        if (value == null)
+            return true;
+
+        if(_acceptedvalues.Length != 0)
         {
-            _acceptedvalues = acceptedvalues;
+            return _acceptedvalues.Contains(value);
         }
 
-        public override bool IsValid(object? value)
-        {
-            if (value == null)
-                return true;
-
-            if(_acceptedvalues.Length != 0)
-            {
-                return _acceptedvalues.Contains(value);
-            }
-
-            return false;
-        }
+        return false;
     }
 }

@@ -1,11 +1,10 @@
-﻿namespace OnlineTutorFinder.Web.Entities
-{
-    public class TeachingDays
-    {
-        public Guid Id { get; set; }
-        public DayOfWeek TeachingDay { get; set; }
+﻿namespace OnlineTutorFinder.Web.Entities;
 
-        public Schedule? Schedule { get; set; }
-        public Guid ScheduleId { get; set; }
-    }
+public class TeachingDays
+{
+    public Guid Id { get; set; }
+    public DayOfWeek TeachingDay { get; set; }
+
+    public Schedule? Schedule { get; set; }
+    public Guid ScheduleId { get; set; }
 }

@@ -1,36 +1,33 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using OnlineTutorFinder.Web.Areas.User.Models;
 using OnlineTutorFinder.Web.Services;
 
-namespace OnlineTutorFinder.Web.Areas.User.Controllers
+namespace OnlineTutorFinder.Web.Areas.User.Controllers;
+
+public class DashboardController : UserBaseController<DashboardController>
 {
-    [Area("User")]
-    [Authorize(Roles = "User")]
-    public class DashboardController : UserBaseController<DashboardController>
+    private readonly IPostService _postService;
+
+    public DashboardController(ILogger<DashboardController> logger, IPostService postService)
+        : base(logger)
     {
-        private readonly IPostService _postService;
+        _postService = postService;
+    }
 
-        public DashboardController(ILogger<DashboardController> logger, IPostService postService)
-            : base(logger)
+    public async Task<IActionResult> Index()
+    {
+        var model = new PostModel();
+        try
         {
-            _postService = postService;
+            var list = await _postService.GetPosts();
+            model.Map(list);
+            model.ReturnURL = $"{Url.Action(nameof(Index),"DashBoard")}";
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, ex.Message);
         }
 
-        public async Task<IActionResult> Index()
-        {
-            var model = new PostModel();
-            try
-            {
-                var list = await _postService.GetPosts();
-                model.Map(list);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, ex.Message);
-            }
-
-            return View(model);
-        }
+        return View(model);
     }
 }
