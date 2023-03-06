@@ -104,7 +104,11 @@ public class PostController : TeacherBaseController<PostController>
     {
         try
         {
-
+            TempData.Put<ResponseModel>("ResponseMessage", new ResponseModel
+            {
+                Message = "Something Went Wrong! Can not Post.",
+                Type = ResponseTypes.Danger
+            });
         }
         catch(Exception ex)
         {
