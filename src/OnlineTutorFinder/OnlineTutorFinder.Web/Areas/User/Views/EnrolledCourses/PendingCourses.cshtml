@@ -12,7 +12,11 @@
             <table class="table table-responsive table-bordered table-striped table-hover text-center">
                 <thead class="bg-gradient-gray">
                     <tr>
-                        <th style="width: 20%;">Subject</th>
+                        <th colspan="6" style="font-size: 24px;">Pending Requests</th>
+                    </tr>
+                    <tr>
+                        <th style="width: 5%;">#</th>
+                        <th style="width: 15%;">Subject</th>
                         <th style="width: 20%;">Tution Time</th>
                         <th style="width: 20%;">Tution Days</th>
                         <th style="width: 20%;">Teacher</th>
@@ -20,17 +24,20 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @{int i = 1;}
                     @foreach (var item in Model.EnrolledCourses)
                     {
                         <tr>
+                            <td>@i</td>
                             <td>@item.SubjectName</td>
-                            <td>@item.StartTime - @item.EndTime</td>
+                            <td>@item.StartTimeText - @item.EndTimeText</td>
                             <td>@item.TeachingDays</td>
                             <td>@item.TeacherName</td>
                             <td>
-                                <button href="#" class="btn btn-sm btn-outline-danger rounded">Cencel Request</button>
+                                <a href="CencelRequest/@item.Id" class="btn btn-sm btn-outline-danger rounded">Cencel Request</a>
                             </td>
                         </tr>
+                        i++;
                     }
                 </tbody>
             </table>

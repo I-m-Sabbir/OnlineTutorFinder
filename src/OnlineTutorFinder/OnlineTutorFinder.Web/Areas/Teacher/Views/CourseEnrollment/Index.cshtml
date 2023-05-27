@@ -1,0 +1,54 @@
+﻿@model RequestEnrollmentModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<br />
+<div class="container">
+    <div class="col-xl-12 col-md-12 col-sm-12">
+        @if (Model != null && Model.RequestEnrollmentModels != null && Model.RequestEnrollmentModels.Count > 0)
+        {
+            <table class="table table-responsive table-bordered table-striped table-hover text-center">
+                <thead class="bg-gradient-gray">
+                    <tr>
+                        <th colspan="7" style="font-size: 24px;">Pending Requests</th>
+                    </tr>
+                    <tr>
+                        <th style="width: 5%">#</th>
+                        <th style="width: 10%;">Subject</th>
+                        <th style="width: 10%;">Tution Time</th>
+                        <th style="width: 20%;">Tution Days</th>
+                        <th style="width: 15%;">Requested By</th>
+                        <th style="width: 20%;">Address</th>
+                        <th style="width: 20%;">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{int i = 1;}
+                    @foreach (var item in Model.RequestEnrollmentModels)
+                    {
+                        <tr>
+                            <td>@i</td>
+                            <td>@item.SubjectName</td>
+                            <td>@item.StartTimeText - @item.EndTimeText</td>
+                            <td>@item.TeachingDays</td>
+                            <td>@item.RequestedBy</td>
+                            <td>@item.Address</td>
+                            <td>
+                                <a href="/Teacher/CourseEnrollment/AcceptRequest/@item.Id" class="btn btn-sm btn-outline-success rounded">Accept</a>
+                                <a href="/Teacher/CourseEnrollment/RejectRequest/@item.Id" class="btn btn-sm btn-outline-danger rounded">Reject</a>
+                            </td>
+                        </tr>
+                        i++;
+                    }
+                </tbody>
+            </table>
+
+        }
+        else
+        {
+            <br />
+            <h3 class="text-center"><span class="bg-gradient-yellow p-2">Currently You Have No Request Available.</span></h3>
+        }
+    </div>
+</div>

@@ -22,6 +22,13 @@ public class TeacherMenu
                 Icon = "fas fa-book",
                 HasChild = false,
             },
+            new MenuItem
+            {
+                Name = "Pending Requests",
+                Link = "/Teacher/CourseEnrollment/Index",
+                Icon = "fa fa-hourglass-half",
+                HasChild = false,
+            }
         };
     }
 }

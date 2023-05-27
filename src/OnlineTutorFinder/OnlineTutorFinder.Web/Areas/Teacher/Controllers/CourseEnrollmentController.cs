@@ -1,27 +1,28 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using OnlineTutorFinder.Web.Areas.User.Models;
+using OnlineTutorFinder.Web.Areas.Teacher.Models;
 using OnlineTutorFinder.Web.Extensions;
 using OnlineTutorFinder.Web.Models;
 using OnlineTutorFinder.Web.Services;
 using OnlineTutorFinder.Web.Services.Membership;
 
-namespace OnlineTutorFinder.Web.Areas.User.Controllers;
+namespace OnlineTutorFinder.Web.Areas.Teacher.Controllers;
 
-public class EnrolledCoursesController : UserBaseController<EnrolledCoursesController>
+public class CourseEnrollmentController : TeacherBaseController<CourseEnrollmentController>
 {
-    private readonly ICourseEnrollmentService _enrollmentService;
+    private readonly ICourseEnrollmentService _courseEnrollmentService;
     private readonly UserManager _userManager;
-    public EnrolledCoursesController(ILogger<EnrolledCoursesController> logger, ICourseEnrollmentService enrollmentService,
-        UserManager userManager)
+
+    public CourseEnrollmentController(ILogger<CourseEnrollmentController> logger, ICourseEnrollmentService courseEnrollmentService, UserManager userManager)
         : base(logger)
     {
-        _enrollmentService = enrollmentService;
+        _courseEnrollmentService = courseEnrollmentService;
         _userManager = userManager;
+
     }
 
-    public async Task<IActionResult> PendingCourses()
+    public async Task<IActionResult> Index()
     {
-        var model = new EnrolledCoursesModel();
+        var model = new RequestEnrollmentModel();
         try
         {
             var user = await _userManager.FindByNameAsync(User.Identity!.Name);
@@ -29,7 +30,7 @@ public class EnrolledCoursesController : UserBaseController<EnrolledCoursesContr
                 throw new Exception("Invalid User.");
             else
             {
-                var result = await _enrollmentService.GetPendingEnrollmentsAsync(user.Id);
+                var result = await _courseEnrollmentService.GetRequestedEnrollmentsAsync(user.Id);
                 model.Map(result);
             }
         }
@@ -47,18 +48,18 @@ public class EnrolledCoursesController : UserBaseController<EnrolledCoursesContr
         return View(model);
     }
 
-    public async Task<IActionResult> CencelRequest(Guid id)
+    public async Task<IActionResult> AcceptRequest(Guid id)
     {
         try
         {
             if (id == Guid.Empty)
                 throw new Exception("Invalid Request Selected.");
 
-            await _enrollmentService.CencelEnrollmentRequestAsync(id);
+            await _courseEnrollmentService.AcceptEnrollRequest(id);
 
             TempData.Put<ResponseModel>("ResponseMessage", new ResponseModel
             {
-                Message = "Request Cenceled.",
+                Message = "Request Accepted.",
                 Type = ResponseTypes.Success
             });
         }
@@ -73,22 +74,23 @@ public class EnrolledCoursesController : UserBaseController<EnrolledCoursesContr
             });
         }
 
-        return RedirectToAction(nameof(PendingCourses));
+        return RedirectToAction(nameof(Index));
     }
 
-    public async  Task<IActionResult> EnrolledCourses()
+    public async Task<IActionResult> RejectRequest(Guid id)
     {
-        var model = new EnrolledCoursesModel();
         try
         {
-            var user = await _userManager.FindByNameAsync(User.Identity!.Name);
-            if (user == null)
-                throw new Exception("Invalid User.");
-            else
+            if (id == Guid.Empty)
+                throw new Exception("Invalid Request Selected.");
+
+            await _courseEnrollmentService.RejectEnrollRequest(id);
+
+            TempData.Put<ResponseModel>("ResponseMessage", new ResponseModel
             {
-                var result = await _enrollmentService.GetAcceptedEnrollmentsAsync(user.Id);
-                model.Map(result);
-            }
+                Message = "Request Rejected.",
+                Type = ResponseTypes.Success
+            });
         }
         catch (Exception ex)
         {
@@ -100,6 +102,7 @@ public class EnrolledCoursesController : UserBaseController<EnrolledCoursesContr
                 Type = ResponseTypes.Danger
             });
         }
-        return View(model);
+
+        return RedirectToAction(nameof(Index));
     }
 }

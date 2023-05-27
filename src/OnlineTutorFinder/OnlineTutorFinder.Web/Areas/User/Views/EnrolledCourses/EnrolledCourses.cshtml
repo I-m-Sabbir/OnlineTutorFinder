@@ -1,7 +1,51 @@
-﻿
+﻿@model EnrolledCoursesModel
+
 @{
     ViewData["Title"] = "Enrolled Courses";
 }
 
-<h1>Enrolled Courses</h1>
 
+<br />
+<div class="container">
+    <div class="col-xl-12 col-md-12 col-sm-12">
+        @if (Model != null && Model.EnrolledCourses != null && Model.EnrolledCourses.Count > 0)
+        {
+            <table class="table table-responsive table-bordered table-striped table-hover text-center">
+                <thead class="bg-gradient-gray">
+                    <tr>
+                        <th colspan="6" style="font-size: 24px;">Enrolled Courses</th>
+                    </tr>
+                    <tr>
+                        <th style="width: 5%;">#</th>
+                        <th style="width: 15%;">Subject</th>
+                        <th style="width: 40%;">Tution Time</th>
+                        <th style="width: 20%;">Tution Days</th>
+                        <th style="width: 20%;">Teacher</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        int i = 1;
+                    }
+                    @foreach (var item in Model.EnrolledCourses)
+                    {
+                        <tr>
+                            <td>@i</td>
+                            <td>@item.SubjectName</td>
+                            <td>@item.StartTimeText - @item.EndTimeText</td>
+                            <td>@item.TeachingDays</td>
+                            <td>@item.TeacherName</td>
+                        </tr>
+                        i++;
+                    }
+                </tbody>
+            </table>
+
+        }
+        else
+        {
+            <br />
+            <h3 class="text-center"><span class="bg-gradient-yellow p-2">Currently You Have No Enrolled Courses Available.</span></h3>
+        }
+    </div>
+</div>

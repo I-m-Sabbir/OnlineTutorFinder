@@ -69,6 +69,14 @@ public class BookingController : UserBaseController<BookingController>
                 Type = ResponseTypes.Success
             });
         }
+        catch(DuplicateException dx)
+        {
+            TempData.Put<ResponseModel>("ResponseMessage", new ResponseModel
+            {
+                Message = dx.Message,
+                Type = ResponseTypes.Danger
+            });
+        }
         catch(Exception ex)
         {
             _logger.LogError(ex, ex.Message);
