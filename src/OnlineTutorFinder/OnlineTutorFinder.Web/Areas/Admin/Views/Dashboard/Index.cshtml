@@ -37,11 +37,15 @@
                 url: "/Admin/Dashboard/GetCounts",
                 type: 'GET',
                 success: function (result) {
-                    $('#totalUser').text(result.totalUser);
-                    $('#totalTeacher').text(result.totalTeacher);
+                    if (result.isSuccess) {
+                        $('#totalUser').text(result.totalUser);
+                        $('#totalTeacher').text(result.totalTeacher);
+                    }
+                    else{
+                        AjaxError(result.message);
+                    }
                 }
             });
-
         });
     </script>
 }

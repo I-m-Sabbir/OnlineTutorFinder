@@ -22,6 +22,7 @@ public class DashboardController : AdminBaseController<DashboardController>
     public async Task<IActionResult> GetCounts()
     {
         bool isSuccess = false;
+        string message = string.Empty;
         int totalUser = 0;
         int totalTeacher = 0;
         try
@@ -32,14 +33,10 @@ public class DashboardController : AdminBaseController<DashboardController>
         catch (Exception ex)
         {
             _logger.LogError(ex, ex.Message);
-
-            TempData.Put<ResponseModel>("ResponseMessage", new ResponseModel
-            {
-                Message = "Something Went Wrong. Could Not Get Counts. Please Try Again.",
-                Type = ResponseTypes.Danger
-            });
+            isSuccess = false;
+            message = "Something Went Wrong. Could Not Get Counts. Please Try Again.";
         }
 
-        return Json(new { isSuccess, totalUser, totalTeacher });
+        return Json(new { isSuccess, totalUser, totalTeacher, message });
     }
 }

@@ -78,7 +78,7 @@
             <!-- /.content-header -->
             <!-- Main content -->
             <section class="content">
-                @*<partial name="_ResponsePartial" />*@
+                <partial name="_ResponsePartial" />
                 @RenderBody()
             </section>
             <!-- /.content -->
@@ -109,11 +109,13 @@
     </script>
     <!-- Bootstrap 4 -->
     <script src="~/adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-    @await RenderSectionAsync("Scripts", required: false)
     <!--Moment Js-->
     <script src="~/adminlte/plugins/moment/moment.min.js"></script>
     <!--DateRange Picker-->
     <script src="~/adminlte/plugins/daterangepicker/daterangepicker.js"></script>
+    <!--Toastr-->
+    <script src="~/adminlte/plugins/toastr/toastr.min.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
     <!-- Tempusdominus Bootstrap 4 -->
     <script src="~/adminlte/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
     <!-- Summernote -->
