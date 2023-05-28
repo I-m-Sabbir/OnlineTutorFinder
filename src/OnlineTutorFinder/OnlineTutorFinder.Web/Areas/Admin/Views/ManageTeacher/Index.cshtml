@@ -1,0 +1,72 @@
+﻿@{
+    ViewData["Title"] = "Manage Teacher";
+}
+
+@section Styles{
+    <link rel="stylesheet" href="~/lib/DataTable/datatables.min.css">
+}
+
+<div class="container-fluid">
+    <table id="dataTable" class="table table-responsive-md table-striped">
+        <thead class="text-center">
+            <tr>
+                <th colspan="3">Manage Teachers</th>
+            </tr>
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody class="text-center">
+
+            <tr>
+                <td>1</td>
+                <td>Name</td>
+                <td>Email</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Name</td>
+                <td>Email</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Name</td>
+                <td>Email</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Name</td>
+                <td>Email</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Name</td>
+                <td>Email</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Name</td>
+                <td>Email</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Name</td>
+                <td>Email</td>
+            </tr>
+
+        </tbody>
+    </table>
+</div>
+
+@section Scripts{
+    <script src="~/lib/DataTable/datatables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            $('#dataTable').DataTable();
+
+        });
+    </script>
+}
