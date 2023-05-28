@@ -23,9 +23,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString),ServiceLifetime.Scoped);
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddScoped<IPostService, PostService>();
-builder.Services.AddScoped<ICourseEnrollmentService, CourseEnrollmentService>();
-
+builder.Services.GetServices();
 #endregion
 
 #region ApplicationUser Conffigure

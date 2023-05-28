@@ -1,8 +1,47 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "Index";
 }
 
-<h1>Admin Dashboard</h1>
+@section Styles{
+    <style>
+        .customCard {
+            background-color: bisque;
+            font-size: 20px;
+            font-weight: bold;
+            padding: 20px 10px;
+        }
+    </style>
+}
 
-@ViewBag.Menu
+<div class="container bg-black text-center p-5">
+    <h1>Admin Dashboard</h1>
+</div>
+<br />
+
+<div class="d-flex justify-content-around">
+
+    <div class="card customCard">
+        <div class="card-body">Total User: <span id="totalUser"> </span></div>
+    </div>
+    <div class="card customCard">
+        <div class="card-body">Total Teacher: <span id="totalTeacher"> </span></div>
+    </div>
+
+</div>
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+
+            $.ajax({
+                url: "/Admin/Dashboard/GetCounts",
+                type: 'GET',
+                success: function (result) {
+                    $('#totalUser').text(result.totalUser);
+                    $('#totalTeacher').text(result.totalTeacher);
+                }
+            });
+
+        });
+    </script>
+}
