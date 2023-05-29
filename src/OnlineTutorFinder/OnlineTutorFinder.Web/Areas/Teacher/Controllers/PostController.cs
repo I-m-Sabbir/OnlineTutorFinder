@@ -53,7 +53,7 @@ public class PostController : TeacherBaseController<PostController>
                 var user = await _userManager.GetUserAsync(User);
                 model.TeacherId = user.Id;
                 await _postService.SavePostAsync(model);
-                
+
                 TempData.Put<ResponseModel>("ResponseMessage", new ResponseModel
                 {
                     Message = "SuccessFully Posted.",
@@ -62,7 +62,7 @@ public class PostController : TeacherBaseController<PostController>
 
                 return RedirectToAction(nameof(Index));
             }
-            catch(DuplicateException dx)
+            catch (DuplicateException dx)
             {
                 TempData.Put<ResponseModel>("ResponseMessage", new ResponseModel
                 {
@@ -80,23 +80,64 @@ public class PostController : TeacherBaseController<PostController>
                 });
             }
         }
-        
+
         return View(model);
     }
 
     public async Task<IActionResult> Edit(Guid id)
     {
-        var user = await _userManager.GetUserAsync(User);
+        var model = new AddSubjectScheduleModel();
         try
         {
+            if (id == Guid.Empty)
+                throw new Exception("Invalid Post Selected.");
 
+            model = await _postService.GetPostByIdAsync(id);
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             _logger.LogError(ex, ex.Message);
         }
 
-        return RedirectToAction(nameof(Index));
+        return View(model);
+    }
+
+    [HttpPost, ValidateAntiForgeryToken]
+    public async Task<IActionResult> Edit(AddSubjectScheduleModel model)
+    {
+        if (ModelState.IsValid)
+        {
+            try
+            {
+                await _postService.UpdatePostAsync(model);
+
+                TempData.Put<ResponseModel>("ResponseMessage", new ResponseModel
+                {
+                    Message = "Successfully Updated.",
+                    Type = ResponseTypes.Success
+                });
+
+                return RedirectToAction(nameof(Index));
+            }
+            catch(DuplicateException ex)
+            {
+                TempData.Put<ResponseModel>("ResponseMessage", new ResponseModel
+                {
+                    Message = ex.Message,
+                    Type = ResponseTypes.Danger
+                });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                TempData.Put<ResponseModel>("ResponseMessage", new ResponseModel
+                {
+                    Message = "Can not Update. Please Try Again.",
+                    Type = ResponseTypes.Danger
+                });
+            }
+        }
+        return View(model);
     }
 
     [HttpPost, ValidateAntiForgeryToken]
@@ -104,15 +145,33 @@ public class PostController : TeacherBaseController<PostController>
     {
         try
         {
+            if (id == Guid.Empty)
+                throw new Exception("Invalid Post Selected.");
+
+            await _postService.DeletePostAsync(id);
+
             TempData.Put<ResponseModel>("ResponseMessage", new ResponseModel
             {
-                Message = "Something Went Wrong! Can not Post.",
+                Message = "Deleted Successfully.",
+                Type = ResponseTypes.Success
+            });
+        }
+        catch (DuplicateException ex)
+        {
+            TempData.Put<ResponseModel>("ResponseMessage", new ResponseModel
+            {
+                Message = ex.Message,
                 Type = ResponseTypes.Danger
             });
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             _logger.LogError(ex, ex.Message);
+            TempData.Put<ResponseModel>("ResponseMessage", new ResponseModel
+            {
+                Message = ex.Message,
+                Type = ResponseTypes.Danger
+            });
         }
 
         return RedirectToAction(nameof(Index));

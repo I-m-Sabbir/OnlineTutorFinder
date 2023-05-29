@@ -13,7 +13,7 @@ public class PostModel : TeacherBaseModel
     public string? TeachingDays { get; set; }
     public string? Teacher { get; set; }
     public IList<PostModel>? PostModels { get; set; }
-
+    
     internal void Map(IList<PostModelDto> posts)
     {
         var list = new List<PostModel>();

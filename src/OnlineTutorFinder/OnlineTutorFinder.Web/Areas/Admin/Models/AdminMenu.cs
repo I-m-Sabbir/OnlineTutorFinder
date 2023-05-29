@@ -17,7 +17,20 @@ public class AdminMenu
                 Icon = "fas fa-user",
                 HasChild = false,
             },
-            
+            new MenuItem
+            {
+                Name = "Manage Teachers",
+                Link = "/Admin/ManageTeacher/Index",
+                Icon = "fa fa-users",
+                HasChild = false,
+            },
+            new MenuItem
+            {
+                Name = "Manage Users",
+                Link = "/Admin/ManageUser/Index",
+                Icon = "fa fa-users",
+                HasChild = false,
+            },
         };
     }
 }

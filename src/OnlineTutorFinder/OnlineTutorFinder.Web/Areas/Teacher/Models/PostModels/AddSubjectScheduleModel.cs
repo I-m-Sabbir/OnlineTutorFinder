@@ -26,5 +26,5 @@ public class AddSubjectScheduleModel : TeacherBaseModel
     public IList<DayOfWeek> DayOfWeeks { get; set; } = null!;
 
     public Guid TeacherId { get; set; }
-                    
+    public Guid SubjectId { get; set; }
 }

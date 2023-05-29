@@ -1,0 +1,93 @@
+﻿@model AddSubjectScheduleModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<div class="container pt-5">
+    <form asp-action="Edit" asp-antiforgery="true" method="post">
+        <div class="card">
+            <div class="card-header"><h3>Tution Information</h3></div>
+            <div class="card-body">
+
+                <!--Hiddden Fields-->
+                <input asp-for="SubjectId" hidden />
+
+                <div class="form-group row">
+                    <label class="col-xl-4 col-md-4 col-sm-12 form-label" asp-for="SubjectName"></label>
+                    <div class="col-xl-8 col-md-8 col-sm-12">
+                        <input class="form-control" asp-for="SubjectName" />
+                        <span class="text-danger" asp-validation-for="SubjectName"></span>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-xl-4 col-md-4 col-sm-12 form-label" asp-for="StartTime"></label>
+                    <div class="col-xl-8 col-md-8 col-sm-12">
+                        <input class="form-control" asp-for="StartTime" />
+                        <span class="text-danger" asp-validation-for="StartTime"></span>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-xl-4 col-md-4 col-sm-12 form-label" asp-for="EndTime"></label>
+                    <div class="col-xl-8 col-md-8 col-sm-12">
+                        <input class="form-control" asp-for="EndTime" />
+                        <span class="text-danger" asp-validation-for="EndTime"></span>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-xl-4 col-md-4 col-sm-12 form-label" asp-for="DayOfWeeks"></label>
+                    <div class="col-xl-8 col-md-8 col-sm-12 d-flex justify-content-between">
+                        <div class="row">
+
+                            <div class="col-xl-4 col-md-6 col-sm-12">
+                                <input type="checkbox" name="DayOfWeeks" value="@DayOfWeek.Saturday" @(Model.DayOfWeeks.Contains(DayOfWeek.Saturday) ? "checked" : "") />
+                                <label>Saturday</label>
+                            </div>
+
+                            <div class="col-xl-4 col-md-6 col-sm-12">
+                                <input type="checkbox" name="DayOfWeeks" value="@DayOfWeek.Sunday" @(Model.DayOfWeeks.Contains(DayOfWeek.Sunday) ? "checked" : "") />
+                                <label>Sunday</label>
+                            </div>
+
+                            <div class="col-xl-4 col-md-6 col-sm-12">
+                                <input type="checkbox" name="DayOfWeeks" value="@DayOfWeek.Monday" @(Model.DayOfWeeks.Contains(DayOfWeek.Monday) ? "checked" : "") />
+                                <label>Monday</label>
+                            </div>
+
+                            <div class="col-xl-4 col-md-6 col-sm-12">
+                                <input type="checkbox" name="DayOfWeeks" value="@DayOfWeek.Tuesday" @(Model.DayOfWeeks.Contains(DayOfWeek.Tuesday) ? "checked" : "") />
+                                <label>Tuesday</label>
+                            </div>
+
+                            <div class="col-xl-4 col-md-6 col-sm-12">
+                                <input type="checkbox" name="DayOfWeeks" value="@DayOfWeek.Wednesday" @(Model.DayOfWeeks.Contains(DayOfWeek.Wednesday) ? "checked" : "") />
+                                <label>Wednesday</label>
+                            </div>
+
+                            <div class="col-xl-4 col-md-6 col-sm-12">
+                                <input type="checkbox" name="DayOfWeeks" value="@DayOfWeek.Thursday" @(Model.DayOfWeeks.Contains(DayOfWeek.Thursday) ? "checked" : "") />
+                                <label>Thursday</label>
+                            </div>
+
+                            <div class="col-xl-4 col-md-6 col-sm-12">
+                                <input type="checkbox" name="DayOfWeeks" value="@DayOfWeek.Friday" @(Model.DayOfWeeks.Contains(DayOfWeek.Friday) ? "checked" : "") />
+                                <label>Friday</label>
+                            </div>
+
+                        </div>
+                        <span class="text-danger" asp-validation-for="DayOfWeeks"></span>
+                    </div>
+                </div>
+
+            </div>
+            <div class="card-footer text-center">
+                <input type="submit" value="Update" class="btn btn-outline-warning rounded" />
+                <a href="/teacher/Post/Index" class="btn btn-outline-primary"><i class="fa fa-backward" aria-hidden="true"></i> Back</a>
+            </div>
+        </div>
+    </form>
+</div>
+

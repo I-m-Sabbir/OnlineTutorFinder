@@ -1,5 +1,5 @@
 ﻿@{
-    ViewData["Title"] = "Manage Teacher";
+    ViewData["Title"] = "Manage User";
 }
 
 @section Styles{
@@ -39,7 +39,7 @@
                     return: true,
                 },
                 ajax: {
-                    url: '@Url.Action("GetTeachers", "ManageTeacher")',
+                    url: '@Url.Action("GetUsers", "ManageUser")',
                     data: function (d) {
 
                     },
